@@ -1,0 +1,5 @@
+package gbn.recipebook.recipe.repository;
+
+public interface IncredientRepository {
+
+}

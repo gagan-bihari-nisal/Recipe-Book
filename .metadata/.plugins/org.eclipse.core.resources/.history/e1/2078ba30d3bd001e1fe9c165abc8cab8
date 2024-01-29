@@ -1,0 +1,18 @@
+@RestController
+public class ShoppingListController {
+    @Autowired
+    private ShoppingListService shoppingListService;
+
+    @PostMapping("/addIngredients")
+    public ResponseEntity<List<ShoppingListDao>> addIngredientsToShoppingList(@RequestBody List<String> ingredientNames) {
+        List<ShoppingListDao> shoppingListItems = shoppingListService.addIngredientsToShoppingList(ingredientNames);
+        return ResponseEntity.ok(shoppingListItems);
+    }
+    
+    @PostMapping("/addIngredient/{ingredientName}")
+    public ResponseEntity<ShoppingListDao> addIngredientToShoppingList(@RequestParam("ingredientName") String ingredientName) {
+        return ResponseEntity.ok(shoppingListService.addIngredientToShoppingList(ingredientName));
+    }
+    
+  
+}

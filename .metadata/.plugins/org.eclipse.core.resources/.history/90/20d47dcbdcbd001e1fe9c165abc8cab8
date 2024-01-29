@@ -1,0 +1,18 @@
+package gbn.recipebook.recipe.config;
+
+import org.springframework.boot.json.JacksonJsonParser;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import feign.codec.Encoder;
+
+@Configuration
+public class FeignClientConfiguration {
+
+    @Bean
+    public JacksonJsonParser feignEncoder() {
+        return new JacksonJsonParser();
+    }
+
+    // Other configurations...
+}

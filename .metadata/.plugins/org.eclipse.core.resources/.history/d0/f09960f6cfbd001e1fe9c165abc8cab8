@@ -1,0 +1,13 @@
+package gbn.recipebook.shoppinglist;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class RecipeBookShoppingListApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(RecipeBookShoppingListApplication.class, args);
+	}
+
+}

@@ -1,0 +1,10 @@
+@Configuration
+public class FeignClientConfiguration {
+
+    @Bean
+    public Encoder feignEncoder() {
+        return new JacksonEncoder();
+    }
+
+    // Other configurations...
+}

@@ -1,0 +1,8 @@
+package gbn.recipebook.recipe.model;
+
+public class ShoppingListDao {
+	private Long id;
+
+	private String ingredientName;
+
+}

@@ -1,0 +1,15 @@
+@Entity
+@Table(name = "steps")
+@Data
+public class Steps {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "recipe_id")
+    private RecipeDao recipe;
+
+    private String step;
+}

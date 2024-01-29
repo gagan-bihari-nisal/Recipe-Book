@@ -1,0 +1,15 @@
+package gbn.recipebook.recipe.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class FeignClientConfiguration {
+
+    @Bean
+    public Encoder feignEncoder() {
+        return new JacksonEncoder();
+    }
+
+    // Other configurations...
+}

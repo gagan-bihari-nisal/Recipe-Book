@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete element from project &apos;recipe-book-gateway&apos;&#x0D;&#x0A;- Original project: &apos;recipe-book-gateway&apos;&#x0D;&#x0A;- Original element: &apos;recipe-book-gateway/src/main/java/gbn.recipebook.gateway.config&apos;" description="Delete element" element1="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;gbn.recipebook.gateway.config" elements="1" flags="589830" id="org.eclipse.jdt.ui.delete" resources="0" stamp="1706379291723" subPackages="false" version="1.0"/>
+</session>

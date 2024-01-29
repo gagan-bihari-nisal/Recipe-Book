@@ -1,0 +1,19 @@
+package gbn.recipebook.gateway.config;
+import feign.RequestInterceptor;
+import feign.RequestTemplate;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class GatewayFeignClientConfiguration {
+
+    @Bean
+    public RequestInterceptor requestInterceptor() {
+        return new RequestInterceptor() {
+            @Override
+            public void apply(RequestTemplate template) {
+                template.header("Content-Length", "1048576"); // Set the maximum content length (in bytes)
+            }
+        };
+    }
+}
