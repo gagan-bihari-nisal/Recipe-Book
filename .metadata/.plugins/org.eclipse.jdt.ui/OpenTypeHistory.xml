@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <typeInfoHistroy>
     <typeInfo handle="=recipe-book-eureka/C:\/Users\/91707\/.m2\/repository\/org\/springframework\/spring-web\/5.3.24\/spring-web-5.3.24.jar=/maven.pomderived=/true=/=/maven.pomderived=/true=/=/maven.groupId=/org.springframework=/=/maven.artifactId=/spring-web=/=/maven.version=/5.3.24=/=/maven.scope=/compile=/&lt;org.springframework.web.cors(CorsConfiguration.class[CorsConfiguration" modifiers="33" timestamp="1670252572268"/>
+    <typeInfo handle="=recipe-book-recipe/C:\/Users\/91707\/.m2\/repository\/org\/springframework\/security\/spring-security-core\/5.7.6\/spring-security-core-5.7.6.jar=/maven.pomderived=/true=/=/maven.pomderived=/true=/=/maven.groupId=/org.springframework.security=/=/maven.artifactId=/spring-security-core=/=/maven.version=/5.7.6=/=/maven.scope=/compile=/&lt;org.springframework.security.core(AuthenticationException.class[AuthenticationException" modifiers="1057" timestamp="1672045136332"/>
 </typeInfoHistroy>

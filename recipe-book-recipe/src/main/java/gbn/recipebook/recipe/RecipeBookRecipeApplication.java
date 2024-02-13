@@ -17,9 +17,4 @@ public class RecipeBookRecipeApplication {
 		SpringApplication.run(RecipeBookRecipeApplication.class, args);
 	}
 
-	@Bean
-	public Retryer retryer() {
-		return new Retryer.Default(100, 1000, 3); // 3 retries with a 1-second backoff
-	}
-
 }

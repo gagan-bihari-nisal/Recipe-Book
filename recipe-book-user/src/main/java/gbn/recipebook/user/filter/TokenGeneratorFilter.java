@@ -16,8 +16,10 @@ import io.jsonwebtoken.security.Keys;
 
 @Component
 public class TokenGeneratorFilter {
+	
 	@Value("${jwt.secret}")
 	private String secret;
+	
 	@Value("${jwt.expiration}")
 	private int expiration;
 	
@@ -25,6 +27,7 @@ public class TokenGeneratorFilter {
 		Map<String, Object> claims = new HashMap<>();
 		return createToken(claims, userDetails);
 	}
+	
 	private String createToken(Map<String, Object> claims, UserDetails userDetails) {
 		SecretKey key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
 		return Jwts.builder().setIssuer("Recipe Book Project").setSubject("JWT Token")

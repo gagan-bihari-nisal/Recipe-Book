@@ -1,0 +1,107 @@
+package gbn.recipebook.recipe.controller;
+
+import java.util.List;
+import java.util.Map;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import gbn.recipebook.recipe.exception.InvalidInputException;
+import gbn.recipebook.recipe.model.Ingredient;
+import gbn.recipebook.recipe.model.RecipeDao;
+import gbn.recipebook.recipe.model.RecipeDto;
+import gbn.recipebook.recipe.model.ShoppingListDao;
+import gbn.recipebook.recipe.model.Steps;
+import gbn.recipebook.recipe.service.RecipeService;
+
+@RestController
+public class RecipeController {
+
+	@Autowired
+	RecipeService recipeService;
+
+	//CRUD operations for recipe
+	//create recipe
+	@PostMapping("/addRecipe")
+	ResponseEntity<RecipeDao> addRecipe(@ModelAttribute @Valid RecipeDto recipe, BindingResult bindingResults)
+			throws InvalidInputException {
+		if (bindingResults.hasErrors()) {
+			throw new InvalidInputException(bindingResults.getAllErrors().stream().map(e -> e.getDefaultMessage())
+					.reduce((e1, e2) -> e1 + " " + e2).orElse(""));
+		}
+		return ResponseEntity.ok(recipeService.addRecipe(recipe));
+	}
+	
+	//retrieve recipe by recipe id
+	@GetMapping("/{id}")
+	ResponseEntity<RecipeDao> getRecipe(@PathVariable("id") Long recipeId) {
+		return ResponseEntity.ok(recipeService.getRecipe(recipeId));
+	}
+
+	//get all recipes added by user
+	@GetMapping("/getAllRecipes")
+	ResponseEntity<List<RecipeDao>> getAllRecipes() {
+		return ResponseEntity.ok(recipeService.getAllRecipes());
+	}
+	
+	//update a recipe by recipe id
+	@PutMapping("/{id}")
+	ResponseEntity<RecipeDao> updateRecipe(@PathVariable("id") Long recipeId,
+			@RequestBody RecipeDto recipeDto, BindingResult bindingResults) throws InvalidInputException {
+		if (bindingResults.hasErrors()) {
+			throw new InvalidInputException(bindingResults.getAllErrors().stream().map(e -> e.getDefaultMessage())
+					.reduce((e1, e2) -> e1 + " " + e2).orElse(""));
+		}
+		
+		return ResponseEntity.ok(recipeService.addRecipe(recipeDto));
+	}
+	
+	//delete by recipe id
+	@DeleteMapping("/{id}")
+	ResponseEntity<Map<String,String>> deleteByRecipeId(@PathVariable("id") Long recipeId) {
+		return ResponseEntity.ok(recipeService.deleteByRecipeId(recipeId));
+	}
+	
+	@GetMapping("/checkExists/{id}")
+	ResponseEntity<Boolean> checkExists(@PathVariable("id") Long recipeId) {
+		return ResponseEntity.ok(recipeService.checkRecipeExists(recipeId));
+	}
+
+	
+
+	
+	@GetMapping("/ingredients/{id}")
+	ResponseEntity<List<Ingredient>> getIngredientsById(@PathVariable("id") Long recipeId) {
+		return ResponseEntity.ok(recipeService.getIngredientsById(recipeId));
+	}
+	
+	//Add ingredient to shopping list
+	@PostMapping("/ingredient/addToShopping/{id}")
+	ResponseEntity<ShoppingListDao> addToShoppingListByIngredientId(@PathVariable("id") Long ingredientId) {
+		return ResponseEntity.ok(recipeService.addToShoppingListByIngredientId(ingredientId));
+	}
+	
+	//Add ingredients to shopping list
+	@PostMapping("/ingredients/addToShopping/{recipeId}")
+	ResponseEntity<List<ShoppingListDao>> addToShoppingListByRecipeId(@PathVariable("recipeId") Long recipeId) {
+		return ResponseEntity.ok(recipeService.addToShoppingListByRecipeId(recipeId));
+	}
+
+
+	@GetMapping("/steps/{id}")
+	ResponseEntity<List<Steps>> getStepsById(@PathVariable("id") Long recipeId) {
+		return ResponseEntity.ok(recipeService.getStepsById(recipeId));
+	}
+
+}

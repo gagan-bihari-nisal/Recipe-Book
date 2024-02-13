@@ -7,6 +7,7 @@ import gbn.recipebook.user.model.UserDao;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserDao, Long> {
+	
 	public UserDao findByUsername(String username);
 	public boolean existsByUsername(String username);
 }

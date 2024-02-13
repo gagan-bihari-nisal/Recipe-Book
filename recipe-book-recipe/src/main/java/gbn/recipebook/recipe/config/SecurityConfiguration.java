@@ -27,8 +27,8 @@ public class SecurityConfiguration {
 		http.cors().and().csrf().disable();
 		http.authorizeRequests().anyRequest().authenticated();
 		http.addFilterBefore(new TokenValidatorFilter(), UsernamePasswordAuthenticationFilter.class);
-		return http.build();
 		
+		return http.build();		
 	}
 
 }

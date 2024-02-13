@@ -1,7 +1,7 @@
 package gbn.recipebook.recipe.config;
 
 import java.io.IOException;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.MediaType;
 
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
@@ -21,13 +23,22 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint{
 	@Override
 	public void commence(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException authException) throws IOException, ServletException {
-		// TODO Auto-generated method stub
+		
+		Map<String, String> responseBody = new HashMap<>();
+
+		if (authException instanceof InsufficientAuthenticationException ) {
+			responseBody.put("message", "Insufficient authentication information provided");
+			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+		} else if (authException instanceof BadCredentialsException) {
+			responseBody.put("message", "Invalid username or password");
+			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+		} else {
+			responseBody.put("message", "UNAUTHORIZED");
+			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+		}
+
 		response.setContentType(MediaType.APPLICATION_JSON);
-		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-		Map<String, String> responseBody = Collections.singletonMap("message", "UNAUTHORIZED");
-		
 		response.getWriter().write(new ObjectMapper().writeValueAsString(responseBody));
-		
 	}
 
 }

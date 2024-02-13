@@ -17,8 +17,10 @@ import gbn.recipebook.user.service.UserService;
 
 @Configuration
 public class SecurityConfiguration {
+	
 	@Autowired
 	PasswordEncoder encoder;
+	
 	@Autowired
 	UserService service;
 

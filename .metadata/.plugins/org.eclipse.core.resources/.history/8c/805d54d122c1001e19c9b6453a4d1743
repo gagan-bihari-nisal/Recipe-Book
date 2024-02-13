@@ -1,0 +1,5 @@
+package gbn.recipebook.recipe.controller;
+
+public class IngredientsController {
+
+}

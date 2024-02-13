@@ -1,0 +1,25 @@
+package gbn.recipebook.recipe.exception;
+
+public class Snippet {
+	@Override
+		public void commence(HttpServletRequest request, HttpServletResponse response,
+				AuthenticationException authException) throws IOException, ServletException {
+			
+			Map<String, String> responseBody = new HashMap<>();
+	
+			if (authException instanceof InsufficientAuthenticationException ) {
+				responseBody.put("message", "Insufficient authentication information provided");
+				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			} else if (authException instanceof BadCredentialsException) {
+				responseBody.put("message", "Invalid username or password");
+				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			} else {
+				responseBody.put("message", "UNAUTHORIZED");
+				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			}
+	
+			response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+			response.getWriter().write(new ObjectMapper().writeValueAsString(responseBody));
+		}
+}
+

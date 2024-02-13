@@ -1,0 +1,5 @@
+package gbn.recipebook.user.controller;
+
+public class GlobalExceptionController {
+
+}

@@ -1,0 +1,5 @@
+package gbn.recipebook.shoppinglist.controller;
+
+public class GlobalExceptionController {
+
+}

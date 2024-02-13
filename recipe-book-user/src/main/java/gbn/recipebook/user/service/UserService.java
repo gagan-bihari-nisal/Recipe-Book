@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import gbn.recipebook.user.exception.InvalidInputException;
 import gbn.recipebook.user.model.UserDao;
 import gbn.recipebook.user.model.UserDto;
 import gbn.recipebook.user.repository.UserRepository;
@@ -26,15 +27,17 @@ public class UserService implements UserDetailsService {
 	@Autowired
 	PasswordEncoder passwordEncoder;
 	
-	public UserDao registerUser(UserDto user) throws Exception {
+	public UserDao registerUser(UserDto user) throws InvalidInputException {
 		if (userRepo.existsByUsername(user.getUsername())) {
-			throw new Exception(user.getUsername() + " is already taken");
+			throw new InvalidInputException(user.getUsername() + " is already taken.");
 		}
+		
 		UserDao userDao = new UserDao();
 		userDao.setFirstName(user.getFirstName());
 		userDao.setLastName(user.getLastName());
 		userDao.setUsername(user.getUsername());
 		userDao.setPassword(passwordEncoder.encode(user.getPassword()));
+		
 		return userRepo.save(userDao);
 	}
 
@@ -42,7 +45,9 @@ public class UserService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		// TODO Auto-generated method stub
 		UserDao user = userRepo.findByUsername(username);
+		
 		List<GrantedAuthority> authorities = new ArrayList<>();
+		
 		if (user != null) {
 			authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 			return new User(user.getUsername(),user.getPassword(), authorities);

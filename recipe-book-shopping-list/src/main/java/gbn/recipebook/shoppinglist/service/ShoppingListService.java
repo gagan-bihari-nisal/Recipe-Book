@@ -36,5 +36,27 @@ public class ShoppingListService {
     	ShoppingListDao saved = shoppingListRepo.save(shoppingListItem);
     	return saved;
     }
+    
+    public List<ShoppingListDao> getAllIngredients() {
+    	String username = SecurityContextHolder.getContext().getAuthentication().getName();
+    	List<ShoppingListDao> ingredients = shoppingListRepo.findAllByUsername(username);
+    	return ingredients;
+    }
+    
+    
+    public ShoppingListDao getIngredientById(Long shoppingListId) {
+    	return shoppingListRepo.findById(shoppingListId).orElse(null);
+    }
+    
+    public String deleteById(Long shoppingListId) {
+    	 shoppingListRepo.deleteById(shoppingListId);
+    	 return "Deleted successfully";
+    }
 
+    public Boolean checkExistsById(Long id) {
+    	if (shoppingListRepo.findById(id) != null) {
+    		return true;
+    	}
+    	return false;
+    }
 }
