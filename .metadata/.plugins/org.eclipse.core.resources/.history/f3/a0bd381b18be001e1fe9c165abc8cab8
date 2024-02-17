@@ -1,9 +1,0 @@
-package gbn.recipebook.shoppinglist.repository;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-
-import gbn.recipebook.shoppinglist.model.ShoppingListDao;
-
-public interface ShoppingListRepository extends JpaRepository<ShoppingListDao, Long> {
-
-}

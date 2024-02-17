@@ -1,5 +1,0 @@
-
-@Data
-public class IngredientDto {
-	private String ingredientName;
-}

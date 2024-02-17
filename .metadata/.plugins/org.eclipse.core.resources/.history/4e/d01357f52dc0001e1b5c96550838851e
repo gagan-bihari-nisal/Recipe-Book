@@ -1,5 +1,0 @@
-package gbn.recipebook.user.exception;
-
-public class InvalidInputException {
-
-}

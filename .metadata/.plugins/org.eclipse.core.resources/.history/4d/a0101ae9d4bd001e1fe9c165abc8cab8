@@ -1,6 +1,0 @@
-package gbn.recipebook.shoppinglist.model;
-
-@Data
-public class IngredientDto {
-	private String ingredientName;
-}

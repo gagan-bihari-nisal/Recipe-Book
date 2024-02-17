@@ -1,5 +1,0 @@
-package gbn.recipebook.recipe.model;
-
-public class IngredientDto {
-
-}

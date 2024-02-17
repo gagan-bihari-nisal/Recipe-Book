@@ -1,5 +1,0 @@
-package gbn.recipebook.shoppinglist.repository;
-
-public interface ShoppingListRepository {
-
-}

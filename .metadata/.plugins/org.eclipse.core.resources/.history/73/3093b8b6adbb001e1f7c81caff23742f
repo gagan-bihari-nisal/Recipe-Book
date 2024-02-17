@@ -1,5 +1,0 @@
-package gbn.recipebook.recipe.service;
-
-public interface ShoppingListClient {
-
-}
