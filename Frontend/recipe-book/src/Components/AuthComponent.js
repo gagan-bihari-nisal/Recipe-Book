@@ -84,7 +84,7 @@ export default class AuthComponent extends Component {
                                 <div className="form-floating">
                                     <input type="text" className="form-control" id="username" name="username"
                                         placeholder='Username' />
-                                    <label  htmlFor="username">Username</label>
+                                    <label htmlFor="username">Username</label>
                                 </div>
                             </div>
                             <div className="input-group mb-3">

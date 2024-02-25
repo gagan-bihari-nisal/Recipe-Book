@@ -1,0 +1,35 @@
+.navbar {
+    background-color: #333;
+    border-color: #e4d6d6;
+    border-radius: 0;
+}
+
+.nav-link {
+    color: aliceblue;
+}
+
+.nav-link:hover {
+    color: gray;
+}
+
+.navbar-header>.navbar-brand {
+    color: gray;
+    font-weight: bolder;
+    font-size: larger;
+}
+
+.navbar-nav .nav-item .nav-link.active {
+    background-color: black;
+    color: aliceblue;
+    border-radius: 5px;
+}
+
+.navbar-nav .nav-item .nav-link {
+    padding: 10px;
+}
+
+.navbar-toggler {
+    background-color: aliceblue;
+    border-color: black;
+    margin-bottom: 5px;
+}
