@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 export default class RecipeDetailComponent extends Component {
   constructor(props) {
@@ -6,11 +8,11 @@ export default class RecipeDetailComponent extends Component {
   }
 
   render() {
-    const { recipe } = this.props;
-
+    const { location } = this.props;
+    const { recipe } = location.state;
     return (
       <>
-        <div className="row" style={{marginTop:'10px'}}>
+       <div className="row" style={{marginTop:'10px'}}>
           <div className="col-xs-12">
             <img src={recipe.imagePath} className="img-responsive" alt={recipe.name} style={{maxHeight:'300px'}} />
 

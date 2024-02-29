@@ -1,29 +1,25 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
+import '../../Styles/RecipeItemComponent.css';
+
+
 export default class RecipeItemComponent extends React.Component {
   render() {
-    const { index, recipe, onClick } = this.props;
+    const { recipe, index } = this.props;
 
     return (
-      <>
-      <div className="list-group-item clearfix"  style={{ marginTop: '5px', marginBottom: '5px' }} onClick={() => onClick(index)}>
-        <div className="pull-left">
-          <h4 className="list-group-item-heading">{recipe.name}</h4>
-          <p className="list-group-item-text">{recipe.description}</p>
+      <NavLink to={`/recipes/${index}`}
+        state={{ recipe: recipe }} className="list-group-item clearfix"  >
+        <div className="row my-1 mx-1 p-1">
+          <div className="col-10">
+            <h4 className="list-group-item-heading">{recipe.name}</h4>
+            <p className="list-group-item-text">{recipe.description}</p>
+          </div>
+          <div className="col-2 d-flex justify-content-center align-items-center">
+            <img src={recipe.imagePath} alt={recipe.name} className="img-responsive" />
+          </div>
         </div>
-        <span className="pull-right">
-          <img
-            src={recipe.imagePath}
-            alt={recipe.name}
-            className="img-responsive"
-            style={{ maxHeight: '50px' }}
-          />
-        </span>
-      </div>
-
-     
-      </>
-
-      
+      </NavLink>
     );
   }
 }

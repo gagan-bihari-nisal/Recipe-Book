@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import RecipeDetailComponent from './RecipeDetailComponent';
 import RecipeStartComponent from './RecipeStartComponent';
 import RecipeListComponent from './RecipeListComponent';
+import { Outlet } from 'react-router-dom';
 
 export default class RecipeComponent extends Component {
     constructor(props) {
@@ -25,17 +26,12 @@ export default class RecipeComponent extends Component {
         const { selectedRecipeIndex } = this.state;
 
         return (
-            <div className="row">
+            <div className="row mx-2 my-4">
                 <div className="col-md-5">
-                    <RecipeListComponent onRecipeClick={this.handleRecipeClick} />
+                    <RecipeListComponent />
                 </div>
                 <div className="col-md-7">
-                    {selectedRecipeIndex !== null && (
-                        <RecipeDetailComponent recipe={recipes[selectedRecipeIndex]} />
-                    )}
-                    {selectedRecipeIndex == null && (
-                        <RecipeStartComponent />
-                    )}
+                    <Outlet />
                 </div>
             </div>
         );
