@@ -1,51 +1,51 @@
-.btn-primary {
-    background-color: #8a2be2;
-    border-color: #8a2be2;
-  }
-  
-  .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
-    background-color: #6b1d9e;
-    border-color: #6b1d9e;
-  }
+.RecipeDetailComponent .btn-primary {
+  background-color: #8a2be2;
+  border-color: #8a2be2;
+}
 
-  .dropdown-menu{
-    background-color: #343A40;
-    
-  }
-  .dropdown-menu>li>a{
-    color: aliceblue;
-  }
-  .dropdown-menu>li>a:hover{
-    color: #000;
-  }
+.RecipeDetailComponent .btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+  background-color: #6b1d9e;
+  border-color: #6b1d9e;
+}
 
-  .list-group-item {
-    background-color: #212529;
-    border-color: #343a40;
-    color: #fff;
-  }
-  
-  .list-group-item:hover {
-    background-color: #343a40;
-  }
-  
-  .list-group-item.active,
-  .list-group-item.active:hover {
-    background-color: #007bff;
-    border-color: #007bff;
-  }
-  
-  .badge {
-    background-color: #6c757d;
-    color: #fff;
-    font-size: 0.8em;
-  }
-  
-  .badge.bg-secondary {
-    background-color: #D9534F;
-  }
-  
+.dropdown-toggle {
+  background-color: rgb(76, 74, 74);
+  color: aliceblue;
+}
 
-  .bg-purple {
-    background-color: #8b5fbf;
-  }
+.dropdown-menu {
+  background-color: #343A40;
+
+}
+
+.dropdown-menu>li>button {
+  color: aliceblue;
+}
+
+.dropdown-menu>li>button:hover {
+  color: #000;
+}
+
+.RecipeDetailComponent .list-group-item {
+  background-color: #212529;
+  border-color: #343a40;
+  color: #fff;
+}
+
+.RecipeDetailComponent .list-group-item:hover {
+  background-color: #343a40;
+}
+
+.RecipeDetailComponent .list-group-item.active,
+.list-group-item.active:hover {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.RecipeDetailComponent .badge {
+  background-color: rgb(76, 74, 74);
+  border-color: aliceblue;
+  color: aliceblue;
+}
