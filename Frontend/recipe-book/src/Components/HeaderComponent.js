@@ -35,7 +35,7 @@ export default class HeaderComponent extends React.Component {
                 <NavLink className="nav-link" to="/recipes">Recipes</NavLink>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" to="/shopping">Shopping List</NavLink>
+                <NavLink className="nav-link" to="/shopping-list">Shopping List</NavLink>
               </li>
             </ul>
           </div>

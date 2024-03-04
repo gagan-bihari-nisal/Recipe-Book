@@ -1,0 +1,16 @@
+
+.ShoppingListComponent .list-group-item {
+    background-color: #212529;
+    border-color: #343a40;
+    color: #fff;
+  }
+  
+  .ShoppingListComponent .list-group-item:hover {
+    background-color: #343a40;
+  }
+  
+  .ShoppingListComponent .list-group-item.active,
+  .list-group-item.active:hover {
+    background-color: #007bff;
+    border-color: #007bff;
+  }
