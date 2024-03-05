@@ -1,0 +1,21 @@
+import { loginSuccess, logoutSuccess } from '../Store/Auth/AuthActions';
+class AuthenticationService {
+    constructor(store) {
+        this.store = store;
+    }
+
+    registerSuccessfulLogin(username, token) {
+        this.store.dispatch(loginSuccess({ username, token }));
+    }
+
+    logout() {
+        this.store.dispatch(logoutSuccess());
+    }
+
+    isUserLoggedIn() {
+        const { auth } = this.store.getState();
+        return auth.isAuthenticated;
+    }
+}
+
+export default AuthenticationService;

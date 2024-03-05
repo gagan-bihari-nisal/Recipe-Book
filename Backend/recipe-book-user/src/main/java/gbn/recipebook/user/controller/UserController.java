@@ -57,5 +57,4 @@ public class UserController {
 		final String jwt = tokenGenerator.generateToken(user);
 		return ResponseEntity.ok(new JwtResponse("Login Successful",jwt));
 	}
-	
 }

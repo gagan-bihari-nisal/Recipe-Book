@@ -1,8 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import '../Styles/HeaderComponent.css';
-
-export default class HeaderComponent extends React.Component {
+import AuthenticationService from '../Services/AuthenticationService';
+import { connect } from 'react-redux';
+import { logoutSuccess } from '../Store/Auth/AuthActions';
+import store from '../Store/Store';
+class HeaderComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -10,12 +13,17 @@ export default class HeaderComponent extends React.Component {
     };
   }
 
+  handleLogout = () => {
+    const authService = new AuthenticationService(store);
+    authService.logout();
+  };
   handleNavCollapse = () => {
     this.setState({ isNavCollapsed: !this.state.isNavCollapsed });
   }
 
   render() {
     const { isNavCollapsed } = this.state;
+    const { isUserLoggedIn } = this.props;
 
     return (
       <nav className="navbar navbar-inverse navbar-expand-lg">
@@ -29,13 +37,18 @@ export default class HeaderComponent extends React.Component {
           <div className={`${isNavCollapsed ? 'collapse' : ''} navbar-collapse`} id="navbarNav">
             <ul className="navbar-nav">
               <li className="nav-item">
-                <NavLink className="nav-link" to="/auth" activeClassName="active">Authentication</NavLink>
+                {!isUserLoggedIn && <NavLink className="nav-link" to="/auth" >Authentication</NavLink>
+                }
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" to="/recipes">Recipes</NavLink>
+                {isUserLoggedIn && <NavLink className="nav-link" to="/recipes" >Recipes</NavLink>
+                }
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" to="/shopping-list">Shopping List</NavLink>
+                {isUserLoggedIn && <NavLink className="nav-link" to="/shopping-list" >Shopping List</NavLink>}
+              </li>
+              <li className='nav-item'>
+                {isUserLoggedIn && <NavLink className="nav-link" to="/logout" onClick={this.handleLogout}>Log Out</NavLink>}
               </li>
             </ul>
           </div>
@@ -46,3 +59,7 @@ export default class HeaderComponent extends React.Component {
 }
 
 
+const mapStateToProps = (state) => ({
+  isUserLoggedIn: state.auth.isAuthenticated,
+});
+export default connect(mapStateToProps, { logoutSuccess })(HeaderComponent);

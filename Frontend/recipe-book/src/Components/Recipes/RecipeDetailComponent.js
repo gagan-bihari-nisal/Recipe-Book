@@ -32,14 +32,14 @@ export default class RecipeDetailComponent extends Component {
             </div>
           </div>
 
-          <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+          <div className="dropdown">
+            <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
               Manage
             </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-              <li><button class="dropdown-item" type="button">To Shopping List</button></li>
-              <li><button class="dropdown-item" type="button">Edit Recipe</button></li>
-              <li><button class="dropdown-item" type="button">Delete Recipe</button></li>
+            <ul className="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <li><button className="dropdown-item" type="button">To Shopping List</button></li>
+              <li><button className="dropdown-item" type="button">Edit Recipe</button></li>
+              <li><button className="dropdown-item" type="button">Delete Recipe</button></li>
             </ul>
           </div>
 
@@ -53,7 +53,7 @@ export default class RecipeDetailComponent extends Component {
                   recipe.ingredients.map((ingredient, index) => (
                     <li key={index} className="list-group-item ">
                       <div>
-                        <span class="badge rounded-pill">{index + 1}</span>
+                        <span className="badge rounded-pill">{index + 1}</span>
                         &nbsp;&nbsp;&nbsp;{ingredient}
                       </div>
                     </li>
@@ -72,7 +72,7 @@ export default class RecipeDetailComponent extends Component {
                   recipe.steps.map((procedure, index) => (
                     <li key={index} className="list-group-item ">
                       <div>
-                        <span class="badge rounded-pill ">Step {index + 1}</span>
+                        <span className="badge rounded-pill ">Step {index + 1}</span>
                         &nbsp;&nbsp;&nbsp;{procedure}
                       </div>
                     </li>
