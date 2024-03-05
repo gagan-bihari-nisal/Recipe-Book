@@ -4,6 +4,7 @@ import { LinearProgress } from '@mui/material';
 import UserService from '../Services/UserService';
 import AuthenticationService from '../Services/AuthenticationService';
 import store from '../Store/Store.js';
+import { ToastContainer, toast } from 'react-toastify';
 class AuthComponent extends Component {
     constructor(props) {
         super(props)
@@ -14,10 +15,6 @@ class AuthComponent extends Component {
             username: '',
             password: '',
             isLoginMode: true,
-            hasLoginFailed: false,
-            hasRegisterFailed: false,
-            showSuccessMessage: false,
-            errorMsg: '',
         }
         this.handleChange = this.handleChange.bind(this);
         this.authClicked = this.authClicked.bind(this);
@@ -41,23 +38,29 @@ class AuthComponent extends Component {
             .catch(error => {
                 this.setState({
                     showProgress: false,
-                    hasLoginFailed: true,
-                    //errorMsg: error.response.data.message
                 })
+                if (error.response) {
+                    toast.error(error.response.data.message)
+                } else {
+                    toast.error("Something went wrong")
+                }
             }
             )
     }
     handleRegister = (e) => {
         UserService.registerUser(this.state.firstName, this.state.lastName, this.state.username, this.state.password)
             .then(response => {
-                console.log("registered" + response);
+                toast.success("Registered Successfully")
             })
             .catch(error => {
                 this.setState({
                     showProgress: false,
-                    hasLoginFailed: true,
-                    //errorMsg: error.response.data.message
                 })
+                if (error.response) {
+                    toast.error(error.response.data.message)
+                } else {
+                    toast.error("Something went wrong")
+                }
             })
     }
 
@@ -86,7 +89,7 @@ class AuthComponent extends Component {
                     this.state.showProgress && <LinearProgress />
                 }
                 <div className="container dark-theme">
-
+                    <ToastContainer theme='dark' />
                     <form onSubmit={this.authClicked}>
 
                         <div className="text-light text-center">

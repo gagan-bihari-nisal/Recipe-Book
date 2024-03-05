@@ -33,7 +33,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 			responseBody.put("message", "Invalid username or password");
 			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 		} else {
-			responseBody.put("message", "UNAUTHORIZED");
+			responseBody.put("message", "Invalid username or password");
 			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 		}
 

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.css';
 import AuthComponent from './Components/AuthComponent';
 import "bootstrap-icons/font/bootstrap-icons.css";
+import 'react-toastify/dist/ReactToastify.css';
 import HeaderComponent from './Components/HeaderComponent';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom'
 import withNavigation from './Routing/withNavigation';
