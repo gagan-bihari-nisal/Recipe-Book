@@ -90,7 +90,4 @@ public class RecipeController {
 	ResponseEntity<Boolean> checkExists(@PathVariable("id") Long recipeId) {
 		return ResponseEntity.ok(recipeService.checkRecipeExists(recipeId));
 	}
-	
-	
-
 }

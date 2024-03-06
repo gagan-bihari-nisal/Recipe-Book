@@ -5,7 +5,7 @@ class AuthenticationService {
     }
 
     registerSuccessfulLogin(username, token) {
-        this.store.dispatch(loginSuccess({ username, token }));
+        this.store.dispatch(loginSuccess(token,username));
     }
 
     logout() {

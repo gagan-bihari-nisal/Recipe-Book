@@ -1,13 +1,31 @@
 import React, { Component } from 'react'
 import '../../Styles/RecipeListComponent.css'
 import RecipeItemComponent from './RecipeItemComponent';
+import store from '../../Store/Store';
+import RecipeService from '../../Services/RecipeService';
 export default class RecipeListComponent extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = (
+      {
+        recipes: []
+      }
+    )
+  }
+  componentDidMount() {
+    const recipeService = new RecipeService(store);
+    recipeService.getAllRecipes().then(res => {
+      this.setState({ recipes: res.data })
+      console.log(this.state.recipes);
+    }).catch(error => {
+      console.log(error);
+    })
+
+  }
   render() {
-    const recipes = [
-      { name: "Recipe 1", description: "desc 1", imagePath: "https://img.jamieoliver.com/jamieoliver/recipe-database/oldImages/large/1571_2_1437661403.jpg?tr=w-800,h-1066", ingredients: ["ing1", "ing 2"], steps: ["step 1", "step 2"] },
-      { name: "Recipe 2", description: "desc 2", imagePath: "https://www.indianhealthyrecipes.com/wp-content/uploads/2023/08/chole-recipe.jpg", ingredients: ["ing1", "ing 2"], steps: ["step 1", "step 2"] }
-    ];
+
+   // const { recipes } = this.props
 
     return (
       <>
@@ -20,8 +38,8 @@ export default class RecipeListComponent extends Component {
           <hr />
           <div className="row">
             <div className="col-xs-12">
-              {recipes.map((recipeEl, i) => (
-                <RecipeItemComponent key={i} recipe={recipeEl} index={i} />
+              {this.state.recipes.map((recipeEl, i) => (
+                <RecipeItemComponent key={i} recipe={recipeEl} id={recipeEl.id} />
               ))}
             </div>
           </div>

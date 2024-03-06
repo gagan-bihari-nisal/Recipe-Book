@@ -19,7 +19,7 @@ import io.jsonwebtoken.Jwts;
 @Component
 public class TokenValidatorFilter extends OncePerRequestFilter{
 	
-	private String secret = "cmVjaXBlIGJvb2sgcHJvamVjdA==";
+	private String secret = "cmVjaXBlIGJvb2sgd2l0aCByZWNpcGVz";
 
 
 	@Override
