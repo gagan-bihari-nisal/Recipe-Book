@@ -46,16 +46,15 @@ public class TokenValidatorFilter extends OncePerRequestFilter {
 				token = authHeader.substring(7);
 				username = extractUsername(token);
 			}
-			if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+			if (username != null) {
 				Authentication auth = new UsernamePasswordAuthenticationToken(username, null,
 						AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_USER"));
-
 				SecurityContextHolder.getContext().setAuthentication(auth);
 			}
 
 			filterChain.doFilter(request, response);
 		} catch (ExpiredJwtException | SignatureException | MalformedJwtException | UnsupportedJwtException
-				| IllegalArgumentException ex ) {
+				| IllegalArgumentException ex) {
 
 			Map<String, String> errorResponse = new HashMap<>();
 			errorResponse.put("message", "Invalid Token or Session Expired.");

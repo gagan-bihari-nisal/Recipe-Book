@@ -11,7 +11,7 @@
     border: none;
 }
 
-.RecipeItemComponent .list-group-item:hover {
+.RecipeItemComponent .list-group-item:hover:not(.active) {
     background-color: #4F4F4F;
     color: #FFFFFF;
 }

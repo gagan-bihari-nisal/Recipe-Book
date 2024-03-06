@@ -11,7 +11,7 @@ export default class RecipeDetailComponent extends Component {
 
           <div className="row" style={{ marginTop: '10px' }}>
             <div className="col-xs-12">
-              <img src={recipe.imagePath} className="img-responsive" alt={recipe.name} style={{ maxHeight: '300px' }} />
+              <img src={recipe.image} className="img-responsive text-light" alt={recipe.name} style={{ maxHeight: '300px' }} />
 
             </div>
           </div>
@@ -54,7 +54,7 @@ export default class RecipeDetailComponent extends Component {
                     <li key={index} className="list-group-item ">
                       <div>
                         <span className="badge rounded-pill">{index + 1}</span>
-                        &nbsp;&nbsp;&nbsp;{ingredient}
+                        &nbsp;&nbsp;&nbsp;{ingredient.ingredientName}
                       </div>
                     </li>
                   ))}
@@ -73,7 +73,7 @@ export default class RecipeDetailComponent extends Component {
                     <li key={index} className="list-group-item ">
                       <div>
                         <span className="badge rounded-pill ">Step {index + 1}</span>
-                        &nbsp;&nbsp;&nbsp;{procedure}
+                        &nbsp;&nbsp;&nbsp;{procedure.step}
                       </div>
                     </li>
                   ))}

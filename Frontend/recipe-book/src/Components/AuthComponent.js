@@ -51,6 +51,7 @@ class AuthComponent extends Component {
         UserService.registerUser(this.state.firstName, this.state.lastName, this.state.username, this.state.password)
             .then(response => {
                 toast.success("Registered Successfully")
+                this.setState({ showProgress: false })
             })
             .catch(error => {
                 this.setState({

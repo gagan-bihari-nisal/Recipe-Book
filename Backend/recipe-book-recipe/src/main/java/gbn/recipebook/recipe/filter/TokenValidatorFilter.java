@@ -44,10 +44,9 @@ public class TokenValidatorFilter extends OncePerRequestFilter {
 				token = authHeader.substring(7);
 				username = extractUsername(token);
 			}
-			if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-				Authentication auth = new UsernamePasswordAuthenticationToken(username, null,
-						AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_USER"));
-
+			if (username != null ) {
+				Authentication auth = new UsernamePasswordAuthenticationToken(username,
+						null, AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_USER"));
 				SecurityContextHolder.getContext().setAuthentication(auth);
 			}
 

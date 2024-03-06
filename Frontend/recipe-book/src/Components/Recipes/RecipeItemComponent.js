@@ -5,8 +5,9 @@ export default class RecipeItemComponent extends React.Component {
   render() {
     const { recipe, id } = this.props;
     const indexOfPublic = recipe.image.indexOf('public');
-    recipe.image = recipe.image.substring(indexOfPublic).substring(6);
-    
+    if (indexOfPublic > 0)
+      recipe.image = recipe.image.substring(indexOfPublic).substring(6);
+
     return (
       <div className="RecipeItemComponent">
         <NavLink to={`/recipes/${id}`}
