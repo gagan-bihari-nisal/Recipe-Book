@@ -24,19 +24,16 @@ export default class RecipeListComponent extends Component {
 
   }
   render() {
-
-   // const { recipes } = this.props
-
     return (
       <>
-        <div className="RecipeListComponent">
+        <div className="RecipeListComponent" >
           <div className="row">
             <div className="col-xs-12">
               <div className="btn btn-add">Add New Recipe</div>
             </div>
           </div>
           <hr />
-          <div className="row">
+          <div className="row" style={{ height: '70vh', overflow: 'scroll' }}>
             <div className="col-xs-12">
               {this.state.recipes.map((recipeEl, i) => (
                 <RecipeItemComponent key={i} recipe={recipeEl} id={recipeEl.id} />
@@ -44,6 +41,7 @@ export default class RecipeListComponent extends Component {
             </div>
           </div>
         </div>
+
       </>
     );
   }
