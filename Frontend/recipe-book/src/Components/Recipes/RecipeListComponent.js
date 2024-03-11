@@ -17,7 +17,6 @@ export default class RecipeListComponent extends Component {
     const recipeService = new RecipeService(store);
     recipeService.getAllRecipes().then(res => {
       this.setState({ recipes: res.data })
-      console.log(this.state.recipes);
     }).catch(error => {
       console.log(error);
     })
