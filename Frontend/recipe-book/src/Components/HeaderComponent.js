@@ -4,7 +4,7 @@ import '../Styles/HeaderComponent.css';
 import AuthenticationService from '../Services/AuthenticationService';
 import { connect } from 'react-redux';
 import { logoutSuccess } from '../Store/Auth/AuthActions';
-import store from '../Store/Store';
+import { store } from '../Store/Store';
 class HeaderComponent extends React.Component {
   constructor(props) {
     super(props);

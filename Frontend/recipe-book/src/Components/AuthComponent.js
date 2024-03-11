@@ -3,7 +3,7 @@ import '../Styles/AuthComponent.css';
 import { LinearProgress } from '@mui/material';
 import UserService from '../Services/UserService';
 import AuthenticationService from '../Services/AuthenticationService';
-import store from '../Store/Store.js';
+import { store } from '../Store/Store.js';
 import { ToastContainer, toast } from 'react-toastify';
 class AuthComponent extends Component {
     constructor(props) {

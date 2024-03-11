@@ -1,9 +1,15 @@
+import { persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 const initialState = {
     token: null,
     isAuthenticated: false,
     username: null,
 }
-
+const authPersistConfig = {
+    key: 'auth',
+    storage: storage,
+    whitelist: ['token', 'isAuthenticated', 'username'],
+};
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'LOGIN_SUCCESS': return {
@@ -17,4 +23,5 @@ const authReducer = (state = initialState, action) => {
             return state;
     }
 }
-export default authReducer;
+
+export default persistReducer(authPersistConfig, authReducer);

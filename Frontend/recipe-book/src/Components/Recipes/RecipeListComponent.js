@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import '../../Styles/RecipeListComponent.css'
 import RecipeItemComponent from './RecipeItemComponent';
-import store from '../../Store/Store';
+import { store } from '../../Store/Store';
 import RecipeService from '../../Services/RecipeService';
 export default class RecipeListComponent extends Component {
 

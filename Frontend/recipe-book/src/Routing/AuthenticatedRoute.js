@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Navigate } from 'react-router-dom';
 import AuthenticationService from '../Services/AuthenticationService';
-import store from '../Store/Store';
+import { store } from '../Store/Store';
 export default class AuthenticatedRoute extends Component {
   render() {
     const authService = new AuthenticationService(store);
