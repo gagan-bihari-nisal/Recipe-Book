@@ -42,7 +42,7 @@ public class ShoppingListController {
 	@GetMapping("/{shoppingListId}")
 	public ResponseEntity<ShoppingListDao> getIngredientById(@PathVariable("shoppingListId") Long shoppingListId)
 			throws InvalidInputException {
-		if (shoppingListService.checkExistsById(shoppingListId)) {
+		if (!shoppingListService.checkExistsById(shoppingListId)) {
 			throw new InvalidInputException(shoppingListId + " does not exists");
 		}
 		return ResponseEntity.ok(shoppingListService.getIngredientById(shoppingListId));
@@ -51,7 +51,7 @@ public class ShoppingListController {
 	@PutMapping("/{shoppingListId}")
 	public ResponseEntity<ShoppingListDao> updateIngredient(@PathVariable("shoppingListId") Long shoppingListId,
 			@RequestBody String ingredientName) throws InvalidInputException {
-		if (shoppingListService.checkExistsById(shoppingListId)) {
+		if (!shoppingListService.checkExistsById(shoppingListId)) {
 			throw new InvalidInputException(shoppingListId + " does not exists");
 		}
 		return ResponseEntity.ok(shoppingListService.addIngredientToShoppingList(ingredientName));
@@ -60,7 +60,7 @@ public class ShoppingListController {
 	@DeleteMapping("/{shoppingListId}")
 	public ResponseEntity<String> updateIngredient(@PathVariable("shoppingListId") Long shoppingListId)
 			throws InvalidInputException {
-		if (shoppingListService.checkExistsById(shoppingListId)) {
+		if (!shoppingListService.checkExistsById(shoppingListId)) {
 			throw new InvalidInputException(shoppingListId + " does not exists");
 		}
 		return ResponseEntity.ok(shoppingListService.deleteById(shoppingListId));

@@ -54,9 +54,6 @@ public class ShoppingListService {
     }
 
     public Boolean checkExistsById(Long id) {
-    	if (shoppingListRepo.findById(id) != null) {
-    		return true;
-    	}
-    	return false;
+    	return shoppingListRepo.existsById(id);
     }
 }
