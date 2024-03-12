@@ -8,7 +8,7 @@ export default class ShoppingListComponent extends Component {
         super(props)
         this.state = (
             {
-                ingredients: []
+                ingredients: [],
             }
         )
     }

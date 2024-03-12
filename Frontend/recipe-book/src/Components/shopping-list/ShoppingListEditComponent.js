@@ -1,18 +1,25 @@
 import React, { Component } from 'react'
-
+import ShoppingListService from '../../Services/ShoppingListService';
+import { store } from '../../Store/Store'
 export default class ShoppingListEditComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: '',
+            name : '',
             editMode: false
         };
     }
 
     handleSubmit = (e) => {
         e.preventDefault();
-        // Handle form submission logic here
-        // You can access form data using this.state.name
+        const shoppingListService = new ShoppingListService(store)
+        shoppingListService.addIngredient(this.state.name)
+            .then(res => {
+                console.log(res);
+            })
+            .catch(error => {
+                console.log(error)
+            })
     }
 
     handleChange = (e) => {
