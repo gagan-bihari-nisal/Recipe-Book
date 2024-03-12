@@ -5,7 +5,7 @@ export default class ShoppingListEditComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name : '',
+            name: '',
             editMode: false
         };
     }
@@ -15,7 +15,8 @@ export default class ShoppingListEditComponent extends Component {
         const shoppingListService = new ShoppingListService(store)
         shoppingListService.addIngredient(this.state.name)
             .then(res => {
-                console.log(res);
+                this.props.onIngredientAdded(res.data);
+                this.setState({ name: '' })
             })
             .catch(error => {
                 console.log(error)

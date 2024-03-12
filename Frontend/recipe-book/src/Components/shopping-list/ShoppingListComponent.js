@@ -13,6 +13,14 @@ export default class ShoppingListComponent extends Component {
         )
     }
 
+
+    handleIngredientAdded = (ingredient) => {
+        this.setState(prevState => ({
+            ingredients: [...prevState.ingredients, ingredient]
+        }));
+    }
+
+
     componentDidMount() {
         const shoppingListService = new ShoppingListService(store);
         shoppingListService.getAllIngredients().then(res => {
@@ -27,7 +35,7 @@ export default class ShoppingListComponent extends Component {
             <div className="ShoppingListComponent p-4">
                 <div className="row">
                     <div className="col-lg-10 col-md-10 col-xs-10 col-sm-12">
-                        <ShoppingListEditComponent />
+                        <ShoppingListEditComponent onIngredientAdded={this.handleIngredientAdded} />
                     </div>
                 </div>
                 <div className="row">
