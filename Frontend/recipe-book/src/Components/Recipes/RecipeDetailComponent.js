@@ -1,6 +1,27 @@
 import React, { Component } from 'react'
 import '../../Styles/RecipeDetailComponent.css';
+import { store } from '../../Store/Store';
+import RecipeService from '../../Services/RecipeService';
+import { ToastContainer, toast } from 'react-toastify';
 export default class RecipeDetailComponent extends Component {
+
+  constructor(props) {
+    super(props)
+  }
+
+
+  addToShoppingList(recipeId) {
+    const recipeService = new RecipeService(store)
+    console.log("working")
+    recipeService.addIngredientsToShoppingListByRecipeId(recipeId)
+      .then(res => {
+        toast.success("Ingredients added to shopping list")
+      })
+      .catch(error => {
+        toast.error("Something went wrong")
+      })
+  }
+
 
   render() {
     const { location } = this.props;
@@ -8,7 +29,7 @@ export default class RecipeDetailComponent extends Component {
     return (
       <>
         <div className="RecipeDetailComponent">
-
+          <ToastContainer/>
           <div className="row" style={{ marginTop: '10px' }}>
             <div className="col-xs-12">
               <img src={recipe.image} className="img-responsive text-light" alt={recipe.name} style={{ maxHeight: '300px' }} />
@@ -37,7 +58,7 @@ export default class RecipeDetailComponent extends Component {
               Manage
             </button>
             <ul className="dropdown-menu" aria-labelledby="dropdownMenu2">
-              <li><button className="dropdown-item" type="button">To Shopping List</button></li>
+              <li><button className="dropdown-item" type="button" onClick={() => this.addToShoppingList(recipe.id)}>To Shopping List</button></li>
               <li><button className="dropdown-item" type="button">Edit Recipe</button></li>
               <li><button className="dropdown-item" type="button">Delete Recipe</button></li>
             </ul>
