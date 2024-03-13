@@ -25,6 +25,17 @@ class RecipeService {
             headers: headers
         });
     }
+
+    deleteRecipe(recipeId) {
+        const { auth } = this.store.getState();
+        const { token } = auth;
+        const headers = {
+            'Authorization': `Bearer ${token}`,
+        };
+        return axios.delete(`${API_CONFIG.recipeService}/${recipeId}`, {
+            headers: headers
+        });
+    }
 }
 
 export default RecipeService;

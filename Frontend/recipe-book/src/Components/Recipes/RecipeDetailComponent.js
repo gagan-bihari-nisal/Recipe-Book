@@ -22,6 +22,18 @@ export default class RecipeDetailComponent extends Component {
       })
   }
 
+  deleteRecipe(recipeId) {
+    const recipeService = new RecipeService(store)
+    recipeService.deleteRecipe(recipeId)
+      .then(res => {
+        toast.success("Recipe deleted")
+        this.props.navigate(-1)
+      })
+      .catch(error => {
+        toast.error("Something went wrong")
+      })
+  }
+
 
   render() {
     const { location } = this.props;
@@ -29,7 +41,7 @@ export default class RecipeDetailComponent extends Component {
     return (
       <>
         <div className="RecipeDetailComponent">
-          <ToastContainer/>
+          <ToastContainer />
           <div className="row" style={{ marginTop: '10px' }}>
             <div className="col-xs-12">
               <img src={recipe.image} className="img-responsive text-light" alt={recipe.name} style={{ maxHeight: '300px' }} />
@@ -60,7 +72,7 @@ export default class RecipeDetailComponent extends Component {
             <ul className="dropdown-menu" aria-labelledby="dropdownMenu2">
               <li><button className="dropdown-item" type="button" onClick={() => this.addToShoppingList(recipe.id)}>To Shopping List</button></li>
               <li><button className="dropdown-item" type="button">Edit Recipe</button></li>
-              <li><button className="dropdown-item" type="button">Delete Recipe</button></li>
+              <li><button className="dropdown-item" type="button" onClick={() => this.deleteRecipe(recipe.id)}>Delete Recipe</button></li>
             </ul>
           </div>
 
