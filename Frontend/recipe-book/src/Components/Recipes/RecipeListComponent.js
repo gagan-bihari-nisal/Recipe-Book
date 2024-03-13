@@ -3,26 +3,28 @@ import '../../Styles/RecipeListComponent.css'
 import RecipeItemComponent from './RecipeItemComponent';
 import { store } from '../../Store/Store';
 import RecipeService from '../../Services/RecipeService';
-export default class RecipeListComponent extends Component {
+import { connect } from 'react-redux';
+import { fetchRecipesSuccess } from '../../Store/Recipes/RecipeActions';
+class RecipeListComponent extends Component {
 
   constructor(props) {
     super(props);
-    this.state = (
-      {
-        recipes: []
-      }
-    )
   }
   componentDidMount() {
+    const { fetchRecipesSuccess } = this.props;
     const recipeService = new RecipeService(store);
-    recipeService.getAllRecipes().then(res => {
-      this.setState({ recipes: res.data })
-    }).catch(error => {
-      console.log(error);
-    })
-
+    recipeService.getAllRecipes()
+      .then(res => {
+        fetchRecipesSuccess(res.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
+
   render() {
+    const { recipes } = this.props.recipes;
+
     return (
       <>
         <div className="RecipeListComponent" >
@@ -34,7 +36,7 @@ export default class RecipeListComponent extends Component {
           <hr />
           <div className="row" style={{ height: '70vh', overflow: 'scroll' }}>
             <div className="col-xs-12">
-              {this.state.recipes.map((recipeEl, i) => (
+              {recipes.map((recipeEl, i) => (
                 <RecipeItemComponent key={i} recipe={recipeEl} id={recipeEl.id} />
               ))}
             </div>
@@ -45,4 +47,14 @@ export default class RecipeListComponent extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  recipes: state.recipes
+});
+
+const mapDispatchToProps = {
+  fetchRecipesSuccess
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(RecipeListComponent);
 

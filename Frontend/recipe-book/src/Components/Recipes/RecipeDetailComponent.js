@@ -3,13 +3,14 @@ import '../../Styles/RecipeDetailComponent.css';
 import { store } from '../../Store/Store';
 import RecipeService from '../../Services/RecipeService';
 import { ToastContainer, toast } from 'react-toastify';
-export default class RecipeDetailComponent extends Component {
+import { deleteRecipeSuccess } from '../../Store/Recipes/RecipeActions';
+import { connect } from 'react-redux';
+class RecipeDetailComponent extends Component {
 
   constructor(props) {
     super(props)
   }
-
-
+  
   addToShoppingList(recipeId) {
     const recipeService = new RecipeService(store)
     console.log("working")
@@ -24,9 +25,11 @@ export default class RecipeDetailComponent extends Component {
 
   deleteRecipe(recipeId) {
     const recipeService = new RecipeService(store)
+    const { deleteRecipeSuccess } = this.props
     recipeService.deleteRecipe(recipeId)
       .then(res => {
         toast.success("Recipe deleted")
+        deleteRecipeSuccess(recipeId)
         this.props.navigate(-1)
       })
       .catch(error => {
@@ -114,11 +117,19 @@ export default class RecipeDetailComponent extends Component {
             </div>
           </div>
         </div>
-
-
-
-
       </>
     )
   }
 }
+
+
+
+const mapStateToProps = (state) => ({
+  recipes: state.recipes
+});
+
+const mapDispatchToProps = {
+  deleteRecipeSuccess
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(RecipeDetailComponent);
