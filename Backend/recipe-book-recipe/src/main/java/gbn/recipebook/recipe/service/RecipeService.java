@@ -5,7 +5,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -114,24 +113,20 @@ public class RecipeService {
 		}
 		return recipeRepo.findAllIngredientsByRecipeId(recipeId);
 	}
-	
-
 
 	public boolean checkIngredientExists(Long ingredientId) {
-		if (ingredientRepo.findById(ingredientId) != null ) {
+		if (ingredientRepo.findById(ingredientId) != null) {
 			return true;
 		}
 		return false;
 	}
-	
+
 	public ShoppingListDao addIngredientToShoppingListByIngredientId(Long ingredientId) {
 		Ingredient ingredient = ingredientRepo.findById(ingredientId).orElse(null);
 		if (ingredient == null)
 			return null;
 		return shoppingListClient.addIngredientToShoppingList(ingredient.getIngredientName()).getBody();
 	}
-	
-	
 
 	public List<ShoppingListDao> addIngredientsToShoppingListByRecipeId(Long recipeId) {
 		if (!checkRecipeExists(recipeId)) {
@@ -144,11 +139,59 @@ public class RecipeService {
 
 		return shoppingListClient.addIngredientsToShoppingList(ingredients).getBody();
 	}
-	
+
 	public List<Steps> getStepsById(Long recipeId) {
 		if (!checkRecipeExists(recipeId)) {
 			return null;
 		}
 		return recipeRepo.findAllStepsByRecipeId(recipeId);
+	}
+
+	public RecipeDao updateRecipe(RecipeDto recipeDto, Long recipeId) throws InvalidInputException {
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		RecipeDao existingRecipe = recipeRepo.findById(recipeId)
+				.orElseThrow(() -> new InvalidInputException(recipeId + " does not exists."));
+
+		existingRecipe.setUsername(username);
+		existingRecipe.setName(recipeDto.getName());
+		existingRecipe.setDescription(recipeDto.getDescription());
+
+		updateIngredients(existingRecipe, recipeDto.getIngredients());
+		updateSteps(existingRecipe, recipeDto.getSteps());
+
+		try {
+			MultipartFile file = recipeDto.getImageFile();
+			if (file != null && !file.isEmpty()) {
+				Path directoryPath = Paths.get(uploadDirectory, "images", username);
+				Files.createDirectories(directoryPath);
+				Path filePath = Paths.get(uploadDirectory, "images", username, recipeId + ".jpg");
+				file.transferTo(filePath.toFile());
+				existingRecipe.setImage(filePath.toString());
+			}
+		} catch (IOException ex) {
+			throw new InvalidInputException("Invalid Image File");
+		}
+
+		return recipeRepo.save(existingRecipe);
+	}
+
+	private void updateIngredients(RecipeDao recipe, List<String> updatedIngredients) {
+		recipe.getIngredients().clear();
+		for (String ingredientName : updatedIngredients) {
+			Ingredient ingredient = new Ingredient();
+			ingredient.setIngredientName(ingredientName);
+			ingredient.setRecipe(recipe);
+			recipe.getIngredients().add(ingredient);
+		}
+	}
+
+	private void updateSteps(RecipeDao recipe, List<String> updatedSteps) {
+		recipe.getSteps().clear();
+		for (String stepName : updatedSteps) {
+			Steps step = new Steps();
+			step.setStep(stepName);
+			step.setRecipe(recipe);
+			recipe.getSteps().add(step);
+		}
 	}
 }

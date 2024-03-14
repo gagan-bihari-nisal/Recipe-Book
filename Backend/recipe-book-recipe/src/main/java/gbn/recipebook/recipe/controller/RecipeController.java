@@ -2,12 +2,10 @@ package gbn.recipebook.recipe.controller;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,15 +14,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import gbn.recipebook.recipe.exception.InvalidInputException;
-import gbn.recipebook.recipe.model.Ingredient;
 import gbn.recipebook.recipe.model.RecipeDao;
 import gbn.recipebook.recipe.model.RecipeDto;
-import gbn.recipebook.recipe.model.ShoppingListDao;
-import gbn.recipebook.recipe.model.Steps;
 import gbn.recipebook.recipe.service.RecipeService;
 
 @RestController
@@ -63,7 +57,7 @@ public class RecipeController {
 
 	// update a recipe by recipe id
 	@PutMapping("/{id}")
-	ResponseEntity<RecipeDao> updateRecipe(@PathVariable("id") Long recipeId, @RequestBody RecipeDto recipeDto,
+	ResponseEntity<RecipeDao> updateRecipe(@PathVariable("id") Long recipeId, @ModelAttribute RecipeDto recipeDto,
 			BindingResult bindingResults) throws InvalidInputException {
 		if (bindingResults.hasErrors()) {
 			throw new InvalidInputException(bindingResults.getAllErrors().stream().map(e -> e.getDefaultMessage())
@@ -72,7 +66,7 @@ public class RecipeController {
 		if (!recipeService.checkRecipeExists(recipeId)) {
 			throw new InvalidInputException(recipeId + " does not exists.");
 		}
-		return ResponseEntity.ok(recipeService.addRecipe(recipeDto));
+		return ResponseEntity.ok(recipeService.updateRecipe(recipeDto, recipeId));
 	}
 
 	// delete by recipe id
