@@ -10,7 +10,7 @@ class RecipeDetailComponent extends Component {
   constructor(props) {
     super(props)
   }
-  
+
   addToShoppingList(recipeId) {
     const recipeService = new RecipeService(store)
     console.log("working")
@@ -35,6 +35,10 @@ class RecipeDetailComponent extends Component {
       .catch(error => {
         toast.error("Something went wrong")
       })
+  }
+
+  editRecipe(recipeId) {  
+    this.props.navigate(`edit`)
   }
 
 
@@ -74,7 +78,7 @@ class RecipeDetailComponent extends Component {
             </button>
             <ul className="dropdown-menu" aria-labelledby="dropdownMenu2">
               <li><button className="dropdown-item" type="button" onClick={() => this.addToShoppingList(recipe.id)}>To Shopping List</button></li>
-              <li><button className="dropdown-item" type="button">Edit Recipe</button></li>
+              <li><button className="dropdown-item" type="button" onClick={()=>this.editRecipe(recipe.id)}>Edit Recipe</button></li>
               <li><button className="dropdown-item" type="button" onClick={() => this.deleteRecipe(recipe.id)}>Delete Recipe</button></li>
             </ul>
           </div>

@@ -10,6 +10,7 @@ class AuthenticationService {
 
     logout() {
         this.store.dispatch(logoutSuccess());
+        localStorage.clear()
     }
 
     isUserLoggedIn() {

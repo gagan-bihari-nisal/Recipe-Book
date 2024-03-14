@@ -14,13 +14,14 @@ import ShoppingListComponent from './Components/shopping-list/ShoppingListCompon
 import ShoppingListEditComponent from './Components/shopping-list/ShoppingListEditComponent';
 import AuthenticatedRoute from './Routing/AuthenticatedRoute';
 import LogoutComponent from './Components/LogoutComponent';
+import RecipeEditComponent from './Components/Recipes/RecipeEditComponent';
 export default class App extends Component {
   render() {
     const AuthComponentWithNav = withNavigation(AuthComponent);
 
     const RecipeComponentWithNav = withNavigation(RecipeComponent);
     const RecipeDetailComponentWithParams = withParams(RecipeDetailComponent);
-
+    const RecipeEditComponentWithParams = withParams(RecipeEditComponent);
     const ShoppingListComponenetWithNav = withNavigation(ShoppingListComponent);
     const LogoutComponentWithNav = withNavigation(LogoutComponent);
     return (
@@ -39,7 +40,8 @@ export default class App extends Component {
               <RecipeComponentWithNav />
             </AuthenticatedRoute>}>
               <Route index element={<RecipeStartComponent />}></Route>
-              <Route path=':id' element={<RecipeDetailComponentWithParams />}></Route>
+              <Route path=':id' element={<RecipeDetailComponentWithParams />} />
+              <Route path=':id/edit' element={<RecipeEditComponentWithParams />} />
             </Route>
 
             {/* for shopping list */}
