@@ -70,7 +70,7 @@ public class RecipeService {
 		try {
 			Path directoryPath = Paths.get(uploadDirectory, "images", username);
 			Files.createDirectories(directoryPath);
-			Path filePath = Paths.get(uploadDirectory, "images", username, savedRecipe.getId() + ".jpg");
+			Path filePath = Paths.get(uploadDirectory, "images", username, savedRecipe.getId()+"_"+file.getOriginalFilename() + ".jpg");
 			file.transferTo(filePath.toFile());
 			recipeDAO.setImage(filePath.toString());
 		} catch (IOException ex) {
@@ -149,6 +149,8 @@ public class RecipeService {
 
 	public RecipeDao updateRecipe(RecipeDto recipeDto, Long recipeId) throws InvalidInputException {
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		MultipartFile file = recipeDto.getImageFile();
+
 		RecipeDao existingRecipe = recipeRepo.findById(recipeId)
 				.orElseThrow(() -> new InvalidInputException(recipeId + " does not exists."));
 
@@ -160,14 +162,11 @@ public class RecipeService {
 		updateSteps(existingRecipe, recipeDto.getSteps());
 
 		try {
-			MultipartFile file = recipeDto.getImageFile();
-			if (file != null && !file.isEmpty()) {
-				Path directoryPath = Paths.get(uploadDirectory, "images", username);
-				Files.createDirectories(directoryPath);
-				Path filePath = Paths.get(uploadDirectory, "images", username, recipeId + ".jpg");
-				file.transferTo(filePath.toFile());
-				existingRecipe.setImage(filePath.toString());
-			}
+			Path directoryPath = Paths.get(uploadDirectory, "images", username);
+			Files.createDirectories(directoryPath);
+			Path filePath = Paths.get(uploadDirectory, "images", username, recipeId+"_"+file.getOriginalFilename() + ".jpg");
+			file.transferTo(filePath.toFile());
+			existingRecipe.setImage(filePath.toString());
 		} catch (IOException ex) {
 			throw new InvalidInputException("Invalid Image File");
 		}

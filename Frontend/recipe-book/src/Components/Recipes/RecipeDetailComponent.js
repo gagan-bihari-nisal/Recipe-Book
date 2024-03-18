@@ -9,6 +9,10 @@ class RecipeDetailComponent extends Component {
 
   constructor(props) {
     super(props)
+    console.log("in the constructor")
+    this.state = {
+      recipe: {}
+    }
   }
 
   addToShoppingList(recipeId) {
@@ -37,14 +41,15 @@ class RecipeDetailComponent extends Component {
       })
   }
 
-  editRecipe(recipeId) {  
+  editRecipe(recipeId) {
     this.props.navigate(`edit`)
   }
 
 
   render() {
-    const { location } = this.props;
-    const { recipe } = location.state;
+
+    const { recipes } = this.props.recipes
+    const recipe = recipes.filter((recipe) => recipe.id === parseInt(this.props.params.id))[0]
     return (
       <>
         <div className="RecipeDetailComponent">
@@ -78,7 +83,7 @@ class RecipeDetailComponent extends Component {
             </button>
             <ul className="dropdown-menu" aria-labelledby="dropdownMenu2">
               <li><button className="dropdown-item" type="button" onClick={() => this.addToShoppingList(recipe.id)}>To Shopping List</button></li>
-              <li><button className="dropdown-item" type="button" onClick={()=>this.editRecipe(recipe.id)}>Edit Recipe</button></li>
+              <li><button className="dropdown-item" type="button" onClick={() => this.editRecipe(recipe.id)}>Edit Recipe</button></li>
               <li><button className="dropdown-item" type="button" onClick={() => this.deleteRecipe(recipe.id)}>Delete Recipe</button></li>
             </ul>
           </div>
@@ -125,7 +130,6 @@ class RecipeDetailComponent extends Component {
     )
   }
 }
-
 
 
 const mapStateToProps = (state) => ({

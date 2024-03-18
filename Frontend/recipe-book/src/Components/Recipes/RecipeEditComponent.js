@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import '../../Styles/RecipeEditComponent.css'
+import RecipeService from '../../Services/RecipeService'
+import { store } from '../../Store/Store';
+import { updateRecipeSuccess } from '../../Store/Recipes/RecipeActions';
 class RecipeEditComponent extends Component {
   constructor(props) {
     super(props)
@@ -9,10 +12,11 @@ class RecipeEditComponent extends Component {
       editMode: this.props.params.id === null ? false : true,
       name: '',
       description: '',
-      imageFile: '',
+      imageFile: null,
       ingredients: [],
       steps: [],
     }
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -39,6 +43,8 @@ class RecipeEditComponent extends Component {
       const updatedSteps = [...this.state.steps];
       updatedSteps[index] = { ...updatedSteps[index], [name]: value };
       this.setState({ steps: updatedSteps });
+    } else if (name === 'imageFile') {
+      this.setState({ imageFile: event.target.files[0] });
     } else {
       this.setState({ [name]: value });
     }
@@ -46,7 +52,31 @@ class RecipeEditComponent extends Component {
 
 
   handleSubmit = (event) => {
-    event.preventDefault();
+    event.preventDefault()
+    const recipeService = new RecipeService(store)
+
+    const formData = new FormData();
+    const state = this.state;
+    formData.append('name', state.name);
+    formData.append('description', state.description);
+
+    const ingredientNames = state.ingredients.map(ingredient => ingredient.ingredientName);
+    formData.append('ingredients', (ingredientNames));
+
+    const steps = state.steps.map(s => s.step);
+    formData.append('steps', (steps));
+    formData.append('imageFile', state.imageFile);
+
+    recipeService.updateRecipe(formData, this.state.id)
+      .then(response => {
+        this.props.updateRecipeSuccess(this.state.id, response.data);
+        console.log("Recipe updated successfully:", response.data);
+        this.props.navigate(-1)
+      })
+      .catch(error => {
+        console.error("Error updating recipe:", error.message);
+      });
+
   }
 
   addIngredient = (event) => {
@@ -67,7 +97,7 @@ class RecipeEditComponent extends Component {
     this.setState({ ingredients: updatedIngredients });
   }
 
-  deleteStep = (index) => { 
+  deleteStep = (index) => {
     const updatedSteps = [...this.state.steps];
     updatedSteps.splice(index, 1);
     this.setState({ steps: updatedSteps });
@@ -81,8 +111,12 @@ class RecipeEditComponent extends Component {
             <form onSubmit={this.handleSubmit}>
               <div className="row my-3">
                 <div className="col-xs-12">
-                  <button className="btn btn-success me-3" type="submit">Save</button>
-                  <button className="btn btn-danger" type="button">Cancel</button>
+                  <button className="btn btn-success me-3" >
+                    {this.state.editMode ? 'Save Edit' : 'Add Recipe'}
+                  </button>
+                  <button className="btn btn-danger" type="button" onClick={() => {
+                    this.props.navigate(-1)
+                  }}>Cancel</button>
                 </div>
               </div>
 
@@ -114,7 +148,7 @@ class RecipeEditComponent extends Component {
 
 
               <div className="input-group mb-3">
-                <label className="input-group-text" for="imageFile">Recipe Image</label>
+                <label className="input-group-text" htmlFor="imageFile">Recipe Image</label>
                 <input type="file" className="form-control" style={{ fontSize: '17px' }} id="imageFile" name="imageFile"
                   onChange={this.handleChange}
                   placeholder='Recipe Image' />
@@ -124,7 +158,7 @@ class RecipeEditComponent extends Component {
               <div className="row">
                 <div className="col-xs-12">
                   {ingredients.map((ingredient, index) => {
-                    return <div className="input-group my-3">
+                    return <div className="input-group my-3" key={index}>
                       <span className="input-group-text">
                         <i className="bi bi-cake text-light" style={{ fontSize: "20px" }}></i>
                       </span>
@@ -147,8 +181,8 @@ class RecipeEditComponent extends Component {
 
               <div className="row">
                 <div className="col-xs-12">
-                  {steps.map((step,index) => {
-                    return <div className="input-group my-3">
+                  {steps.map((step, index) => {
+                    return <div className="input-group my-3" key={index}>
                       <span className="input-group-text">
                         <i className="bi bi-cake text-light" style={{ fontSize: "20px" }}></i>
                       </span>
@@ -160,12 +194,12 @@ class RecipeEditComponent extends Component {
 
                         <label htmlFor="ingredients">Recipe Procedure</label>
                       </div>
-                      <button className="btn btn-danger" type="button" onClick={() => this.deleteStep(index)}id="button-addon2">X</button>
+                      <button className="btn btn-danger" type="button" onClick={() => this.deleteStep(index)} id="button-addon2">X</button>
                     </div>
                   })}
                 </div>
               </div>
-              <button className="btn btn-success" type="button"  onClick={this.addStep}id="button-addon2">Add Next Step</button>
+              <button className="btn btn-success" type="button" onClick={this.addStep} id="button-addon2">Add Next Step</button>
               <hr className='text-white' />
 
             </form>
@@ -180,4 +214,8 @@ const mapStateToProps = (state) => ({
   recipes: state.recipes
 });
 
-export default connect(mapStateToProps)(RecipeEditComponent);
+const mapDispatchToProps = (dispatch) => ({
+  updateRecipeSuccess: (recipeId, updatedRecipeData) => dispatch(updateRecipeSuccess(recipeId, updatedRecipeData))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(RecipeEditComponent);

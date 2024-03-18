@@ -21,6 +21,21 @@ const recipeReducer = (state = initialState, action) => {
                 ...state,
                 recipes: state.recipes.filter(recipe => recipe.id !== action.recipeId)
             }
+        case 'UPDATE_RECIPE_SUCCESS':
+            const { recipeId, updatedRecipe } = action;
+            const recipes = {
+                ...state,
+                recipes: state.recipes.map(recipe => {
+                    if (recipe.id === parseInt(recipeId)) {
+                        return {
+                            ...recipe,
+                            ...updatedRecipe
+                        };
+                    }
+                    return recipe;
+                })
+            };
+            return recipes;
         default:
             return state;
     }

@@ -7,3 +7,9 @@ export const deleteRecipeSuccess = (recipeId) => ({
   type: 'DELETE_RECIPE_SUCCESS',
   recipeId
 })
+
+export const updateRecipeSuccess = (recipeId, updatedRecipe) => ({
+  type: 'UPDATE_RECIPE_SUCCESS',
+  recipeId,
+  updatedRecipe
+})
