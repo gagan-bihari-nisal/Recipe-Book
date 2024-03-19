@@ -9,7 +9,6 @@ class RecipeDetailComponent extends Component {
 
   constructor(props) {
     super(props)
-    console.log("in the constructor")
     this.state = {
       recipe: {}
     }
@@ -17,7 +16,6 @@ class RecipeDetailComponent extends Component {
 
   addToShoppingList(recipeId) {
     const recipeService = new RecipeService(store)
-    console.log("working")
     recipeService.addIngredientsToShoppingListByRecipeId(recipeId)
       .then(res => {
         toast.success("Ingredients added to shopping list")
@@ -34,7 +32,7 @@ class RecipeDetailComponent extends Component {
       .then(res => {
         toast.success("Recipe deleted")
         deleteRecipeSuccess(recipeId)
-        this.props.navigate(-1)
+        this.props.navigate('/recipes/')
       })
       .catch(error => {
         toast.error("Something went wrong")
@@ -52,11 +50,11 @@ class RecipeDetailComponent extends Component {
     const recipe = recipes.filter((recipe) => recipe.id === parseInt(this.props.params.id))[0]
     return (
       <>
-        <div className="RecipeDetailComponent">
+        {recipe != null && <div className="RecipeDetailComponent">
           <ToastContainer />
           <div className="row" style={{ marginTop: '10px' }}>
             <div className="col-xs-12">
-              <img src={recipe.image} className="img-responsive text-light" alt={recipe.name} style={{ maxHeight: '300px' }} />
+              <img src={recipe.image == null ? '' : recipe.image} className="img-responsive text-light" alt={recipe.name} style={{ maxHeight: '300px' }} />
 
             </div>
           </div>
@@ -125,7 +123,7 @@ class RecipeDetailComponent extends Component {
               </ul>
             </div>
           </div>
-        </div>
+        </div>}
       </>
     )
   }

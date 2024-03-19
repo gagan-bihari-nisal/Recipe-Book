@@ -13,3 +13,8 @@ export const updateRecipeSuccess = (recipeId, updatedRecipe) => ({
   recipeId,
   updatedRecipe
 })
+
+export const addRecipeSuccess = (newRecipe)=>({
+  type:'ADD_RECIPE_SUCCESS',
+  newRecipe
+})

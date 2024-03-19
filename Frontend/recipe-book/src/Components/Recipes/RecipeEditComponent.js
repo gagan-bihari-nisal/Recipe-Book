@@ -9,7 +9,6 @@ class RecipeEditComponent extends Component {
     super(props)
     this.state = {
       id: this.props.params.id,
-      editMode: this.props.params.id === null ? false : true,
       name: '',
       description: '',
       imageFile: null,
@@ -20,7 +19,7 @@ class RecipeEditComponent extends Component {
   }
 
   componentDidMount() {
-    if (this.state.editMode) {
+    if (this.state.id != null) {
       const { recipes } = this.props.recipes;
       const recipe = recipes.filter(recipe => recipe.id === parseInt(this.state.id))[0];
       this.setState({
@@ -32,6 +31,7 @@ class RecipeEditComponent extends Component {
       })
     }
   }
+  
 
   handleChange = (event, index, type) => {
     const { name, value } = event.target;
@@ -50,6 +50,9 @@ class RecipeEditComponent extends Component {
     }
   }
 
+  handleCancel=()=>{
+    this.props.navigate(-1)
+  }
 
   handleSubmit = (event) => {
     event.preventDefault()
@@ -65,8 +68,9 @@ class RecipeEditComponent extends Component {
 
     const steps = state.steps.map(s => s.step);
     formData.append('steps', (steps));
-    formData.append('imageFile', state.imageFile);
-
+    if (state.imageFile) {
+      formData.append('imageFile', state.imageFile);
+    }
     recipeService.updateRecipe(formData, this.state.id)
       .then(response => {
         this.props.updateRecipeSuccess(this.state.id, response.data);
@@ -112,11 +116,9 @@ class RecipeEditComponent extends Component {
               <div className="row my-3">
                 <div className="col-xs-12">
                   <button className="btn btn-success me-3" >
-                    {this.state.editMode ? 'Save Edit' : 'Add Recipe'}
+                   Save Edit
                   </button>
-                  <button className="btn btn-danger" type="button" onClick={() => {
-                    this.props.navigate(-1)
-                  }}>Cancel</button>
+                  <button className="btn btn-danger" type="button" onClick={this.handleCancel}>Cancel</button>
                 </div>
               </div>
 

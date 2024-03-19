@@ -28,6 +28,17 @@ class RecipeService {
         });
     }
 
+    addRecipe(formData) {
+        const { auth } = this.store.getState();
+        const { token } = auth;
+        return axios.post(`${API_CONFIG.recipeService}/addRecipe`, formData, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+    }
+
     addIngredientsToShoppingListByRecipeId(recipeId) {
         const { auth } = this.store.getState();
         const { token } = auth;

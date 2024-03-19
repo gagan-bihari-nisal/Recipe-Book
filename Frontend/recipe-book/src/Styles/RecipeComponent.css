@@ -12,3 +12,9 @@
     padding: 10px;
   }
   
+
+  .RecipeComponent .btn-add {
+    background-color: rgb(76, 74, 74);
+    border-color: aliceblue;
+    color: aliceblue;
+}

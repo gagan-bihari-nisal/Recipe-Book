@@ -24,15 +24,10 @@ class RecipeListComponent extends Component {
 
   render() {
     const { recipes } = this.props.recipes;
-
+  
     return (
       <>
         <div className="RecipeListComponent" >
-          <div className="row">
-            <div className="col-xs-12">
-              <div className="btn btn-add">Add New Recipe</div>
-            </div>
-          </div>
           <hr />
           <div className="row" style={{ height: '70vh', overflow: 'scroll' }}>
             <div className="col-xs-12">

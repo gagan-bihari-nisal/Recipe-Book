@@ -15,6 +15,7 @@ import ShoppingListEditComponent from './Components/shopping-list/ShoppingListEd
 import AuthenticatedRoute from './Routing/AuthenticatedRoute';
 import LogoutComponent from './Components/LogoutComponent';
 import RecipeEditComponent from './Components/Recipes/RecipeEditComponent';
+import RecipeAddComponent from './Components/Recipes/RecipeAddComponent';
 export default class App extends Component {
   render() {
     const AuthComponentWithNav = withNavigation(AuthComponent);
@@ -22,6 +23,8 @@ export default class App extends Component {
     const RecipeComponentWithNav = withNavigation(RecipeComponent);
     const RecipeDetailComponentWithParams = withParams(RecipeDetailComponent);
     const RecipeEditComponentWithParams = withParams(RecipeEditComponent);
+    const ReciipeAddComponentWithNav = withNavigation(RecipeAddComponent);
+
     const ShoppingListComponenetWithNav = withNavigation(ShoppingListComponent);
     const LogoutComponentWithNav = withNavigation(LogoutComponent);
     return (
@@ -42,6 +45,8 @@ export default class App extends Component {
               <Route index element={<RecipeStartComponent />}></Route>
               <Route path=':id' element={<RecipeDetailComponentWithParams />} />
               <Route path=':id/edit' element={<RecipeEditComponentWithParams />} />
+              <Route path='new' element={<ReciipeAddComponentWithNav />} />
+
             </Route>
 
             {/* for shopping list */}

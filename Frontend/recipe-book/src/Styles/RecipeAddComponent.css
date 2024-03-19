@@ -1,0 +1,42 @@
+.RecipeAddComponent input[type='file']:focus {
+    background-color: #444; 
+    color: white;
+}
+
+
+.RecipeAddComponent .input-group .input-group-text,
+input[type="text"],
+input[type="password"],input[type="file"] {
+    color: #fff;
+    background-color: #444;
+    border-color: #666;
+}
+
+.RecipeAddComponent .form-floating {
+    color: white;
+    background-color: #444;
+}
+
+.RecipeAddComponent .form-floating input:focus  {
+    background-color: #444; 
+    color: white;
+}
+
+.RecipeAddComponent label {
+    color: white;
+}
+
+.RecipeAddComponent .form-floating > .form-control:not(:placeholder-shown) ~ label::after {
+    background-color: transparent;
+}
+.RecipeAddComponent .form-floating > .form-control:not(:placeholder-shown) ~ label {
+    color: white;
+}
+
+.RecipeAddComponent .form-floating > :focus ~ label {
+    color: white !important;
+}
+.RecipeAddComponent .form-floating > :focus ~ label::after {
+    background-color: transparent !important;
+  }
+

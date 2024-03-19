@@ -149,7 +149,6 @@ public class RecipeService {
 
 	public RecipeDao updateRecipe(RecipeDto recipeDto, Long recipeId) throws InvalidInputException {
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
-		MultipartFile file = recipeDto.getImageFile();
 
 		RecipeDao existingRecipe = recipeRepo.findById(recipeId)
 				.orElseThrow(() -> new InvalidInputException(recipeId + " does not exists."));
@@ -161,14 +160,17 @@ public class RecipeService {
 		updateIngredients(existingRecipe, recipeDto.getIngredients());
 		updateSteps(existingRecipe, recipeDto.getSteps());
 
-		try {
-			Path directoryPath = Paths.get(uploadDirectory, "images", username);
-			Files.createDirectories(directoryPath);
-			Path filePath = Paths.get(uploadDirectory, "images", username, recipeId+"_"+file.getOriginalFilename() + ".jpg");
-			file.transferTo(filePath.toFile());
-			existingRecipe.setImage(filePath.toString());
-		} catch (IOException ex) {
-			throw new InvalidInputException("Invalid Image File");
+		if(recipeDto.getImageFile()!=null) {
+			MultipartFile file = recipeDto.getImageFile();
+			try {
+				Path directoryPath = Paths.get(uploadDirectory, "images", username);
+				Files.createDirectories(directoryPath);
+				Path filePath = Paths.get(uploadDirectory, "images", username, recipeId+"_"+file.getOriginalFilename() + ".jpg");
+				file.transferTo(filePath.toFile());
+				existingRecipe.setImage(filePath.toString());
+			} catch (IOException ex) {
+				throw new InvalidInputException("Invalid Image File");
+			}
 		}
 
 		return recipeRepo.save(existingRecipe);
