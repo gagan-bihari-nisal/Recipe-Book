@@ -5,6 +5,8 @@ import UserService from '../Services/UserService';
 import AuthenticationService from '../Services/AuthenticationService';
 import { store } from '../Store/Store.js';
 import { ToastContainer, toast } from 'react-toastify';
+import { Navigate } from 'react-router-dom';
+import RecipeComponent from './Recipes/RecipeComponent.js';
 class AuthComponent extends Component {
     constructor(props) {
         super(props)
@@ -84,12 +86,14 @@ class AuthComponent extends Component {
     }
 
     render() {
+        const authService = new AuthenticationService(store)
+        const isAuthenticated = authService.isUserLoggedIn();
         return (
             <>
                 {
                     this.state.showProgress && <LinearProgress />
                 }
-                <div className="container dark-theme">
+               { !isAuthenticated ?<div className="container dark-theme">
                     <ToastContainer theme='dark' />
                     <form onSubmit={this.authClicked}>
 
@@ -156,7 +160,7 @@ class AuthComponent extends Component {
                             <button type="button" onClick={this.switchMode} className="btn btn-signup" >Switch to {this.state.isLoginMode ? 'Sign Up' : 'Login'}</button>
                         </div>
                     </form>
-                </div >
+                </div >: <Navigate to='/recipes'/>}
             </>
         )
     }

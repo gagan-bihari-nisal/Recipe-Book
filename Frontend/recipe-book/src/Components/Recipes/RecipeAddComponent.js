@@ -4,6 +4,7 @@ import { store } from '../../Store/Store'
 import RecipeService from '../../Services/RecipeService'
 import { addRecipeSuccess } from '../../Store/Recipes/RecipeActions'
 import { connect } from 'react-redux'
+import {ToastContainer,toast} from 'react-toastify';
 class RecipeAddComponent extends Component {
     constructor(props) {
         super(props)
@@ -37,10 +38,15 @@ class RecipeAddComponent extends Component {
             .then(response => {
                 console.log("Recipe added successfully:", response.data);
                 this.props.addRecipeSuccess(response.data);
+                toast.success("Recipe added successfully")
                 this.props.navigate('/recipes/')
             })
             .catch(error => {
-                console.error("Error updating recipe:", error.message);
+                if (error.response) {
+                    toast.error(error.response.data.message)
+                } else {
+                    toast.error("Something went wrong")
+                }
             });
 
     }
@@ -95,6 +101,7 @@ class RecipeAddComponent extends Component {
         const { name, description, ingredients, steps } = this.state;
         return (
             <div className="RecipeEditComponent">
+                <ToastContainer/>
                 <div className="row">
                     <div className="col-xs-12">
                         <form onSubmit={this.handleSubmit}>
@@ -115,7 +122,7 @@ class RecipeAddComponent extends Component {
                                     <input type="text" className="form-control" id="name" name="name"
                                         onChange={this.handleChange}
                                         placeholder='Recipe Name'
-                                        value={name} />
+                                        value={name} required />
                                     <label htmlFor="name">Recipe Name</label>
                                 </div>
                             </div>
@@ -128,7 +135,7 @@ class RecipeAddComponent extends Component {
                                     <input type="text" className="form-control" id="description" name="description"
                                         onChange={this.handleChange}
                                         value={description}
-                                        placeholder='Recipe Description' />
+                                        placeholder='Recipe Description' required/>
                                     <label htmlFor="description">Recipe Description</label>
                                 </div>
                             </div>
@@ -138,7 +145,7 @@ class RecipeAddComponent extends Component {
                                 <label className="input-group-text" htmlFor="imageFile">Recipe Image</label>
                                 <input type="file" className="form-control" style={{ fontSize: '17px' }} id="imageFile" name="imageFile"
                                     onChange={this.handleChange}
-                                    placeholder='Recipe Image' />
+                                    placeholder='Recipe Image' required/>
                             </div>
 
                             <hr className='text-white' />

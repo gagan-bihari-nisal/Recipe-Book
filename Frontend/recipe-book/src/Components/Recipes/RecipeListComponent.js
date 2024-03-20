@@ -28,9 +28,10 @@ class RecipeListComponent extends Component {
           <hr />
           <div className="row" style={{ height: '70vh', overflow: 'scroll' }}>
             <div className="col-xs-12">
-              {recipes.map((recipeEl, i) => (
+              {recipes.length >0? recipes.map((recipeEl, i) => (
                 <RecipeItemComponent key={i} recipe={recipeEl} id={recipeEl.id} />
-              ))}
+              )): <h5 className='text-white text-center'>
+Add something            </h5>}
             </div>
           </div>
         </div>

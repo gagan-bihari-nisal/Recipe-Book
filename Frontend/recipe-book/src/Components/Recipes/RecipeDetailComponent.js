@@ -88,9 +88,9 @@ class RecipeDetailComponent extends Component {
 
           <div className="row" style={{ marginTop: '10px' }}>
             <div className="col-xs-12">
-              <h4 className="fs-5 text-uppercase fw-bolder text-light">
+              {recipe.ingredients.length > 0 && <h4 className="fs-5 text-uppercase fw-bolder text-light">
                 Ingredients
-              </h4>
+              </h4>}
               <ul className="list-group">
                 {recipe.ingredients.length > 0 &&
                   recipe.ingredients.map((ingredient, index) => (
@@ -105,11 +105,11 @@ class RecipeDetailComponent extends Component {
             </div>
           </div>
 
-          <div className="row">
+          <div className="row" style={{ marginTop: '10px' }}>
             <div className="col-xs-12">
-              <h4 className="fs-5 text-uppercase fw-bolder text-light">
+              {recipe.steps.length > 0 && <h4 className="fs-5 text-uppercase fw-bolder text-light">
                 Procedure
-              </h4>
+              </h4>}
               <ul className="list-group">
                 {recipe.steps.length > 0 &&
                   recipe.steps.map((procedure, index) => (
