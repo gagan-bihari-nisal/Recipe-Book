@@ -66,7 +66,6 @@ public class RecipeController {
 		if (!recipeService.checkRecipeExists(recipeId)) {
 			throw new InvalidInputException(recipeId + " does not exists.");
 		}
-		System.out.println(recipeDto.getImageFile());
 		return ResponseEntity.ok(recipeService.updateRecipe(recipeDto, recipeId));
 	}
 

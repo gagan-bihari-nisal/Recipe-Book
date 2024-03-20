@@ -54,7 +54,7 @@ public class ShoppingListController {
 		if (!shoppingListService.checkExistsById(shoppingListId)) {
 			throw new InvalidInputException(shoppingListId + " does not exists");
 		}
-		return ResponseEntity.ok(shoppingListService.addIngredientToShoppingList(ingredientName));
+		return ResponseEntity.ok(shoppingListService.updateIngredientById(shoppingListId, ingredientName));
 	}
 
 	@DeleteMapping("/{shoppingListId}")

@@ -37,6 +37,12 @@ public class ShoppingListService {
     	return saved;
     }
     
+    public ShoppingListDao updateIngredientById(Long id,String ingredientName) {
+    	ShoppingListDao existingIngredient = shoppingListRepo.findById(id).orElse(null);
+    	existingIngredient.setIngredientName(ingredientName);
+    	return shoppingListRepo.save(existingIngredient);
+    }
+    
     public List<ShoppingListDao> getAllIngredients() {
     	String username = SecurityContextHolder.getContext().getAuthentication().getName();
     	List<ShoppingListDao> ingredients = shoppingListRepo.findAllByUsername(username);
@@ -56,4 +62,5 @@ public class ShoppingListService {
     public Boolean checkExistsById(Long id) {
     	return shoppingListRepo.existsById(id);
     }
+    
 }

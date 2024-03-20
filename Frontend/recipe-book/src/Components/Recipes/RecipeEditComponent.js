@@ -107,7 +107,7 @@ class RecipeEditComponent extends Component {
     this.setState({ steps: updatedSteps });
   }
   render() {
-    const { name, description, ingredients, steps, imageFile } = this.state;
+    const { name, description, ingredients, steps } = this.state;
     return (
       <div className="RecipeEditComponent">
         <div className="row">

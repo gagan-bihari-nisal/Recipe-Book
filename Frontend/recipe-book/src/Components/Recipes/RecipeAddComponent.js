@@ -92,7 +92,7 @@ class RecipeAddComponent extends Component {
     }
 
     render() {
-        const { name, description, ingredients, steps, imageFile } = this.state;
+        const { name, description, ingredients, steps } = this.state;
         return (
             <div className="RecipeEditComponent">
                 <div className="row">

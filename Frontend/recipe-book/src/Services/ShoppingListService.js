@@ -26,6 +26,29 @@ class ShoppingListService {
             headers: headers
         })
     }
+
+    updateIngredient(id,ingredient) {
+        const { auth } = this.store.getState();
+        const { token } = auth;
+        const headers = {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'text/plain'
+        }
+        return axios.put(`${API_CONFIG.shoppingListService}/${id}`, ingredient, {
+            headers: headers
+        })
+    }
+    deleteIngredient(id) {
+        const { auth } = this.store.getState();
+        const { token } = auth;
+        const headers = {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'text/plain'
+        }
+        return axios.delete(`${API_CONFIG.shoppingListService}/${id}`, {
+            headers: headers
+        })
+    }
 }
 
 export default ShoppingListService
