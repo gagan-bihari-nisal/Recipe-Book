@@ -6,10 +6,7 @@ import RecipeService from '../../Services/RecipeService';
 import { connect } from 'react-redux';
 import { fetchRecipesSuccess } from '../../Store/Recipes/RecipeActions';
 class RecipeListComponent extends Component {
-
-  constructor(props) {
-    super(props);
-  }
+  
   componentDidMount() {
     const { fetchRecipesSuccess } = this.props;
     const recipeService = new RecipeService(store);

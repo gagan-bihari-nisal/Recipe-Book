@@ -4,10 +4,6 @@ import { Outlet } from 'react-router-dom';
 import '../../Styles/RecipeComponent.css'
 export default class RecipeComponent extends Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     handleAddNewRecipe = () => {
         this.props.navigate('new')
     }
