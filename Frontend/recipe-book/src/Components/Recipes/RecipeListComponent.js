@@ -26,7 +26,7 @@ class RecipeListComponent extends Component {
       <>
         <div className="RecipeListComponent" >
           <hr />
-          <div className="row" style={{ height: '70vh', overflow: 'scroll' }}>
+          <div className="row" style={{ maxHeight: '70vh', overflow: 'scroll' }}>
             <div className="col-xs-12">
               {recipes.length >0? recipes.map((recipeEl, i) => (
                 <RecipeItemComponent key={i} recipe={recipeEl} id={recipeEl.id} />
