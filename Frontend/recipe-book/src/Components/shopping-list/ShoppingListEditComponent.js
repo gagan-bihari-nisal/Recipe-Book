@@ -4,7 +4,7 @@ import { store } from '../../Store/Store'
 import { connect } from 'react-redux';
 import { addIngredientSuccess, deleteIngredientSuccess } from '../../Store/ShoppingList/ShoppingListActions';
 import { updateIngredientSuccess } from '../../Store/ShoppingList/ShoppingListActions';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 class ShoppingListEditComponent extends Component {
     constructor(props) {
@@ -88,7 +88,6 @@ class ShoppingListEditComponent extends Component {
 
         return (
             <>
-            <ToastContainer/>
                 <div className="row">
                     <div className="col-xs-12">
                         <form onSubmit={this.handleSubmit}>
@@ -107,11 +106,11 @@ class ShoppingListEditComponent extends Component {
                             </div>
                             <div className="row mt-3">
                                 <div className="col-xs-12 ">
-                                    <button className="btn btn-success me-3" type="submit" disabled={!name} style={{ backgroundColor: '#2c3e50', borderColor: 'aliceblue' }}>
+                                    <button className="btn btn-success me-3" type="submit" disabled={!name} style={{ backgroundColor: 'rgb(19, 30, 37)', borderColor: 'aliceblue' }}>
                                         {editMode ? 'Update' : 'Add'}
                                     </button>
                                     {editMode && (
-                                        <button className="btn btn-danger me-3" type="button" onClick={this.handleDelete} style={{ backgroundColor: '#c0392b', borderColor: 'aliceblue' }}>
+                                        <button className="btn btn-danger me-3" type="button" onClick={this.handleDelete} style={{ backgroundColor: 'rgb(19, 30, 37)', borderColor: 'aliceblue' }}>
                                             Delete
                                         </button>
                                     )}

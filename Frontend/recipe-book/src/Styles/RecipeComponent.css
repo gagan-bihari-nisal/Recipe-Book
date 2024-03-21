@@ -1,20 +1,22 @@
 .recipe-container {
-    display: flex;
-  }
-  
-  .recipe-list {
-    flex: 1; /* Occupy 50% of the available space */
-    padding: 10px;
-  }
-  
-  .recipe-detail {
-    flex: 1; /* Occupy 50% of the available space */
-    padding: 10px;
-  }
-  
+  display: flex;
+}
 
-  .RecipeComponent .btn-add {
-    background-color: rgb(76, 74, 74);
-    border-color: aliceblue;
-    color: aliceblue;
+.recipe-list {
+  flex: 1;
+  /* Occupy 50% of the available space */
+  padding: 10px;
+}
+
+.recipe-detail {
+  flex: 1;
+  /* Occupy 50% of the available space */
+  padding: 10px;
+}
+
+
+.RecipeComponent .btn-add {
+  background-color: rgb(19, 30, 37);
+  border-color: aliceblue;
+  color: aliceblue;
 }

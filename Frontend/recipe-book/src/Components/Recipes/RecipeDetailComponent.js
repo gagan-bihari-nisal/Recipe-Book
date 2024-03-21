@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import '../../Styles/RecipeDetailComponent.css';
 import { store } from '../../Store/Store';
 import RecipeService from '../../Services/RecipeService';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { deleteRecipeSuccess } from '../../Store/Recipes/RecipeActions';
 import { connect } from 'react-redux';
 class RecipeDetailComponent extends Component {
@@ -51,12 +51,11 @@ class RecipeDetailComponent extends Component {
     return (
       <>
         {recipe != null && <div className="RecipeDetailComponent">
-          <ToastContainer />
           <div className="row" style={{ marginTop: '10px' }}>
             <div className="col-xs-12">
-              <img src={recipe.image == null ? '' : recipe.image}       className="img-fluid rounded text-light" 
- 
-              alt={recipe.name} style={{ maxHeight: '300px' }} />
+              <img src={recipe.image == null ? '' : recipe.image} className="img-fluid rounded text-light"
+
+                alt={recipe.name} style={{ maxHeight: '300px' }} />
 
             </div>
           </div>

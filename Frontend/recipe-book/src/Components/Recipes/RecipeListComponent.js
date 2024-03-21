@@ -6,7 +6,7 @@ import RecipeService from '../../Services/RecipeService';
 import { connect } from 'react-redux';
 import { fetchRecipesSuccess } from '../../Store/Recipes/RecipeActions';
 class RecipeListComponent extends Component {
-  
+
   componentDidMount() {
     const { fetchRecipesSuccess } = this.props;
     const recipeService = new RecipeService(store);
@@ -21,17 +21,17 @@ class RecipeListComponent extends Component {
 
   render() {
     const { recipes } = this.props.recipes;
-  
+
     return (
       <>
         <div className="RecipeListComponent" >
           <hr />
           <div className="row" style={{ maxHeight: '70vh', overflow: 'scroll' }}>
             <div className="col-xs-12">
-              {recipes.length >0? recipes.map((recipeEl, i) => (
+              {recipes.length > 0 ? recipes.map((recipeEl, i) => (
                 <RecipeItemComponent key={i} recipe={recipeEl} id={recipeEl.id} />
-              )): <h5 className='text-white text-center'>
-Add something            </h5>}
+              )) : <h5 className='text-white text-center fst-italic'>
+                Add something            </h5>}
             </div>
           </div>
         </div>

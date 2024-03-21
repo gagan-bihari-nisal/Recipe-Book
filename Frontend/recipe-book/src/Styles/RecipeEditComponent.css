@@ -1,12 +1,13 @@
 .RecipeEditComponent input[type='file']:focus {
-    background-color: #444; 
+    background-color: #444;
     color: white;
 }
 
 
 .RecipeEditComponent .input-group .input-group-text,
 input[type="text"],
-input[type="password"],input[type="file"] {
+input[type="password"],
+input[type="file"] {
     color: #fff;
     background-color: #444;
     border-color: #666;
@@ -17,8 +18,8 @@ input[type="password"],input[type="file"] {
     background-color: #444;
 }
 
-.RecipeEditComponent .form-floating input:focus  {
-    background-color: #444; 
+.RecipeEditComponent .form-floating input:focus {
+    background-color: #444;
     color: white;
 }
 
@@ -26,17 +27,18 @@ input[type="password"],input[type="file"] {
     color: white;
 }
 
-.RecipeEditComponent .form-floating > .form-control:not(:placeholder-shown) ~ label::after {
+.RecipeEditComponent .form-floating>.form-control:not(:placeholder-shown)~label::after {
     background-color: transparent;
 }
-.RecipeEditComponent .form-floating > .form-control:not(:placeholder-shown) ~ label {
+
+.RecipeEditComponent .form-floating>.form-control:not(:placeholder-shown)~label {
     color: white;
 }
 
-.RecipeEditComponent .form-floating > :focus ~ label {
+.RecipeEditComponent .form-floating> :focus~label {
     color: white !important;
 }
-.RecipeEditComponent .form-floating > :focus ~ label::after {
-    background-color: transparent !important;
-  }
 
+.RecipeEditComponent .form-floating> :focus~label::after {
+    background-color: transparent !important;
+}

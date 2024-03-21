@@ -4,7 +4,7 @@ import '../../Styles/RecipeItemComponent.css';
 export default class RecipeItemComponent extends React.Component {
   render() {
     const { recipe, id } = this.props;
-  
+
     if (recipe.image) {
       const indexOfPublic = recipe.image.indexOf('public');
       if (indexOfPublic > 0)
@@ -22,9 +22,9 @@ export default class RecipeItemComponent extends React.Component {
             </div>
             <div className="col-4 d-flex justify-content-center align-items-center">
               <img src={recipe.image} alt={recipe.name}
- className="img-fluid" 
- style={{ maxWidth: "100%", height: "auto", maxHeight: "50px" }} 
- />
+                className="img-fluid"
+                style={{ maxWidth: "100%", height: "auto", maxHeight: "50px" }}
+              />
             </div>
           </div>
         </NavLink>

@@ -38,7 +38,7 @@ const recipeReducer = (state = initialState, action) => {
             return recipes;
         case 'ADD_RECIPE_SUCCESS':
             return {
-                ...state,   
+                ...state,
                 recipes: [...state.recipes, action.newRecipe]
             }
         default:

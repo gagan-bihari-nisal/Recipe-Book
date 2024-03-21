@@ -11,12 +11,12 @@
 }
 
 .dropdown-toggle {
-  background-color: rgb(76, 74, 74);
+  background-color: rgb(19, 30, 37);
   color: aliceblue;
 }
 
 .dropdown-menu {
-  background-color: #343A40;
+  background-color: rgb(19, 30, 37);
 
 }
 
@@ -29,7 +29,7 @@
 }
 
 .RecipeDetailComponent .list-group-item {
-  background-color: #212529;
+  background-color: rgb(19, 30, 37);
   border-color: #343a40;
   color: #fff;
 }

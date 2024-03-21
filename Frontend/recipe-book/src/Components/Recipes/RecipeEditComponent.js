@@ -4,6 +4,7 @@ import '../../Styles/RecipeEditComponent.css'
 import RecipeService from '../../Services/RecipeService'
 import { store } from '../../Store/Store';
 import { updateRecipeSuccess } from '../../Store/Recipes/RecipeActions';
+import { toast } from 'react-toastify';
 class RecipeEditComponent extends Component {
   constructor(props) {
     super(props)
@@ -31,7 +32,7 @@ class RecipeEditComponent extends Component {
       })
     }
   }
-  
+
 
   handleChange = (event, index, type) => {
     const { name, value } = event.target;
@@ -50,7 +51,7 @@ class RecipeEditComponent extends Component {
     }
   }
 
-  handleCancel=()=>{
+  handleCancel = () => {
     this.props.navigate(-1)
   }
 
@@ -74,11 +75,11 @@ class RecipeEditComponent extends Component {
     recipeService.updateRecipe(formData, this.state.id)
       .then(response => {
         this.props.updateRecipeSuccess(this.state.id, response.data);
-        console.log("Recipe updated successfully:", response.data);
+        toast.success("Recipe updated successfully:");
         this.props.navigate(-1)
       })
       .catch(error => {
-        console.error("Error updating recipe:", error.message);
+        toast.error("Error updating recipe:", error.message);
       });
 
   }
@@ -116,7 +117,7 @@ class RecipeEditComponent extends Component {
               <div className="row my-3">
                 <div className="col-xs-12">
                   <button className="btn btn-success me-3" >
-                   Save Edit
+                    Save Edit
                   </button>
                   <button className="btn btn-danger" type="button" onClick={this.handleCancel}>Cancel</button>
                 </div>

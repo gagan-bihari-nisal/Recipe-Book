@@ -14,7 +14,7 @@ export const updateRecipeSuccess = (recipeId, updatedRecipe) => ({
   updatedRecipe
 })
 
-export const addRecipeSuccess = (newRecipe)=>({
-  type:'ADD_RECIPE_SUCCESS',
+export const addRecipeSuccess = (newRecipe) => ({
+  type: 'ADD_RECIPE_SUCCESS',
   newRecipe
 })

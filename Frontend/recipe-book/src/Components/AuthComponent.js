@@ -4,9 +4,8 @@ import { LinearProgress } from '@mui/material';
 import UserService from '../Services/UserService';
 import AuthenticationService from '../Services/AuthenticationService';
 import { store } from '../Store/Store.js';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { Navigate } from 'react-router-dom';
-import RecipeComponent from './Recipes/RecipeComponent.js';
 class AuthComponent extends Component {
     constructor(props) {
         super(props)
@@ -35,6 +34,7 @@ class AuthComponent extends Component {
                 const authService = new AuthenticationService(store);
                 authService.registerSuccessfulLogin(this.state.username, response.data.token);
                 this.setState({ showProgress: false })
+                toast.success("Logged In Successfully")
                 this.props.navigate(`/recipes`)
             })
             .catch(error => {
@@ -93,8 +93,7 @@ class AuthComponent extends Component {
                 {
                     this.state.showProgress && <LinearProgress />
                 }
-               { !isAuthenticated ?<div className="container dark-theme">
-                    <ToastContainer theme='dark' />
+                {!isAuthenticated ? <div className="container dark-theme">
                     <form onSubmit={this.authClicked}>
 
                         <div className="text-light text-center">
@@ -160,7 +159,7 @@ class AuthComponent extends Component {
                             <button type="button" onClick={this.switchMode} className="btn btn-signup" >Switch to {this.state.isLoginMode ? 'Sign Up' : 'Login'}</button>
                         </div>
                     </form>
-                </div >: <Navigate to='/recipes'/>}
+                </div > : <Navigate to='/recipes' />}
             </>
         )
     }

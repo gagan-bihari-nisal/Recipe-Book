@@ -4,7 +4,7 @@ import { store } from '../../Store/Store'
 import RecipeService from '../../Services/RecipeService'
 import { addRecipeSuccess } from '../../Store/Recipes/RecipeActions'
 import { connect } from 'react-redux'
-import {ToastContainer,toast} from 'react-toastify';
+import { toast } from 'react-toastify';
 class RecipeAddComponent extends Component {
     constructor(props) {
         super(props)
@@ -36,9 +36,8 @@ class RecipeAddComponent extends Component {
         }
         recipeService.addRecipe(formData)
             .then(response => {
-                console.log("Recipe added successfully:", response.data);
-                this.props.addRecipeSuccess(response.data);
                 toast.success("Recipe added successfully")
+                this.props.addRecipeSuccess(response.data);
                 this.props.navigate('/recipes/')
             })
             .catch(error => {
@@ -101,7 +100,6 @@ class RecipeAddComponent extends Component {
         const { name, description, ingredients, steps } = this.state;
         return (
             <div className="RecipeEditComponent">
-                <ToastContainer/>
                 <div className="row">
                     <div className="col-xs-12">
                         <form onSubmit={this.handleSubmit}>
@@ -135,7 +133,7 @@ class RecipeAddComponent extends Component {
                                     <input type="text" className="form-control" id="description" name="description"
                                         onChange={this.handleChange}
                                         value={description}
-                                        placeholder='Recipe Description' required/>
+                                        placeholder='Recipe Description' required />
                                     <label htmlFor="description">Recipe Description</label>
                                 </div>
                             </div>
@@ -145,7 +143,7 @@ class RecipeAddComponent extends Component {
                                 <label className="input-group-text" htmlFor="imageFile">Recipe Image</label>
                                 <input type="file" className="form-control" style={{ fontSize: '17px' }} id="imageFile" name="imageFile"
                                     onChange={this.handleChange}
-                                    placeholder='Recipe Image' required/>
+                                    placeholder='Recipe Image' required />
                             </div>
 
                             <hr className='text-white' />

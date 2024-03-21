@@ -16,6 +16,8 @@ import AuthenticatedRoute from './Routing/AuthenticatedRoute';
 import LogoutComponent from './Components/LogoutComponent';
 import RecipeEditComponent from './Components/Recipes/RecipeEditComponent';
 import RecipeAddComponent from './Components/Recipes/RecipeAddComponent';
+import './App.css';
+import { ToastContainer } from 'react-toastify';
 export default class App extends Component {
   render() {
     const AuthComponentWithNav = withNavigation(AuthComponent);
@@ -28,9 +30,10 @@ export default class App extends Component {
     const ShoppingListComponenetWithNav = withNavigation(ShoppingListComponent);
     const LogoutComponentWithNav = withNavigation(LogoutComponent);
     return (
-      <div className="RecipeBook" style={{ backgroundColor: '#1e1e1e', minHeight: '100vh', width: '100%', overflow: 'hidden' }}>
+      <div className="RecipeBook" style={{ minHeight: '100vh', width: '100%', overflow: 'hidden' }}>
         <Router>
           <HeaderComponent />
+          <ToastContainer/>
           <Routes>
             <Route path="/" element={<Navigate to="/auth" />}></Route>
             <Route path="/auth" element={<AuthComponentWithNav />}></Route>

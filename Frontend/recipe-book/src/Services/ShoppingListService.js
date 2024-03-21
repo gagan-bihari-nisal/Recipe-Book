@@ -27,7 +27,7 @@ class ShoppingListService {
         })
     }
 
-    updateIngredient(id,ingredient) {
+    updateIngredient(id, ingredient) {
         const { auth } = this.store.getState();
         const { token } = auth;
         const headers = {

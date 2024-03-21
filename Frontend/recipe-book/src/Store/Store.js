@@ -8,8 +8,8 @@ import shoppingListReducer from './ShoppingList/ShoppingListReducers.js';
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  recipes : recipeReducer,
-  shoppingList : shoppingListReducer,
+  recipes: recipeReducer,
+  shoppingList: shoppingListReducer,
 })
 
 const persistConfig = {

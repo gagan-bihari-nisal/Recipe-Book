@@ -8,8 +8,8 @@ class RecipeStartComponent extends Component {
     return (
       <>
         <div className="RecipeStartComponent">
-        
-         {recipes.length>0 ? <div className="text-white">Please select something</div>: <></>}
+
+          {recipes.length > 0 ? <div className="text-white">Please select something</div> : <></>}
         </div>
       </>
     )

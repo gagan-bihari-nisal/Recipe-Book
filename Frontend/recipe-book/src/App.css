@@ -32,13 +32,12 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
 
-.RecipeBook{
-  background-color: #333333;
-  width: 100vw;
-  height: 100vh;
+.RecipeBook {
+ background-color:#1e1e1e;
 }
