@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Backend.iml" filepath="$PROJECT_DIR$/Backend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/recipe-book-eureka/recipe-book-eureka.iml" filepath="$PROJECT_DIR$/recipe-book-eureka/recipe-book-eureka.iml" />
+      <module fileurl="file://$PROJECT_DIR$/recipe-book-gateway/recipe-book-gateway.iml" filepath="$PROJECT_DIR$/recipe-book-gateway/recipe-book-gateway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/recipe-book-recipe/recipe-book-recipe.iml" filepath="$PROJECT_DIR$/recipe-book-recipe/recipe-book-recipe.iml" />
+      <module fileurl="file://$PROJECT_DIR$/recipe-book-shopping-list/recipe-book-shopping-list.iml" filepath="$PROJECT_DIR$/recipe-book-shopping-list/recipe-book-shopping-list.iml" />
+      <module fileurl="file://$PROJECT_DIR$/recipe-book-user/recipe-book-user.iml" filepath="$PROJECT_DIR$/recipe-book-user/recipe-book-user.iml" />
+    </modules>
+  </component>
+</project>
