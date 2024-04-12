@@ -47,6 +47,12 @@ class HeaderComponent extends React.Component {
               <li className="nav-item">
                 {isUserLoggedIn && <NavLink className="nav-link" to="/shopping-list" >Shopping List</NavLink>}
               </li>
+
+              {/* Add another nav-item for My Feed NavLink */}
+              <li className="nav-item">
+                {isUserLoggedIn && <NavLink className="nav-link" to="/feed" >My Feed</NavLink>}
+                </li>
+
               <li className='nav-item'>
                 {isUserLoggedIn && <NavLink className="nav-link" to="/logout" onClick={this.handleLogout}>Log Out</NavLink>}
               </li>

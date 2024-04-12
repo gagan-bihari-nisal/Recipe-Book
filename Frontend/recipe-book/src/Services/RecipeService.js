@@ -16,6 +16,17 @@ class RecipeService {
         })
     }
 
+    getOtherRecipes(){
+        const { auth } = this.store.getState();
+        const { token } = auth;
+        const headers = {
+            'Authorization': `Bearer ${token}`
+        }
+        return axios.get(`${API_CONFIG.recipeService}/getOtherRecipes`, {
+            headers: headers
+        })
+    }
+
     updateRecipe(formData, recipeId) {
         const { auth } = this.store.getState();
         const { token } = auth;

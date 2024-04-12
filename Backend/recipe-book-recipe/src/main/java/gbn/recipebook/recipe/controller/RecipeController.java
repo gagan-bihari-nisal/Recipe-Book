@@ -55,6 +55,11 @@ public class RecipeController {
 		return ResponseEntity.ok(recipeService.getAllRecipes());
 	}
 
+//	get all recipes from the database except those added by the user
+	@GetMapping("/getOtherRecipes")
+	ResponseEntity<List<RecipeDao>> getOtherRecipes() {
+		return ResponseEntity.ok(recipeService.getOtherRecipes());
+	}
 	// update a recipe by recipe id
 	@PutMapping("/{id}")
 	ResponseEntity<RecipeDao> updateRecipe(@PathVariable("id") Long recipeId, @ModelAttribute RecipeDto recipeDto,

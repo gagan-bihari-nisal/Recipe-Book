@@ -18,6 +18,7 @@ import RecipeEditComponent from './Components/Recipes/RecipeEditComponent';
 import RecipeAddComponent from './Components/Recipes/RecipeAddComponent';
 import './App.css';
 import { ToastContainer } from 'react-toastify';
+import MyFeedComponent from './Components/MyFeedComponent';
 export default class App extends Component {
   render() {
     const AuthComponentWithNav = withNavigation(AuthComponent);
@@ -26,6 +27,8 @@ export default class App extends Component {
     const RecipeDetailComponentWithParams = withParams(RecipeDetailComponent);
     const RecipeEditComponentWithParams = withParams(RecipeEditComponent);
     const ReciipeAddComponentWithNav = withNavigation(RecipeAddComponent);
+
+    const MyFeedComponentWithNav = withNavigation(MyFeedComponent);
 
     const ShoppingListComponenetWithNav = withNavigation(ShoppingListComponent);
     const LogoutComponentWithNav = withNavigation(LogoutComponent);
@@ -51,6 +54,11 @@ export default class App extends Component {
               <Route path='new' element={<ReciipeAddComponentWithNav />} />
 
             </Route>
+
+            {/* for my feed */}
+            <Route path='/feed' element={<AuthenticatedRoute>
+              <MyFeedComponentWithNav />
+            </AuthenticatedRoute>} />
 
             {/* for shopping list */}
             <Route path='/shopping-list' element={<AuthenticatedRoute>

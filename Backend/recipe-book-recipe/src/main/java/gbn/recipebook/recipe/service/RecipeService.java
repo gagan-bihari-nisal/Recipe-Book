@@ -99,6 +99,14 @@ public class RecipeService {
 		return recipeRepo.findByUsername(username);
 	}
 
+	public List<RecipeDao> getOtherRecipes() {
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		List<RecipeDao> recipes = recipeRepo.findAll().stream()
+				.filter(recipe -> !recipe.getUsername().equals(username))
+				.collect(Collectors.toList());
+		return recipes;
+	}
+
 	public Map<String, String> deleteByRecipeId(Long recipeId) {
 		if (!checkRecipeExists(recipeId)) {
 			return Collections.singletonMap("message", recipeId + " does not exists.");
