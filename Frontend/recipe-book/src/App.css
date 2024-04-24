@@ -46,3 +46,7 @@
   color: #4e6986; /* Change color on hover */
   transform: scaleY(1.2); /* Increase size on hover */
 }
+
+body{
+font-family: Helvetica, sans-serif;
+}
