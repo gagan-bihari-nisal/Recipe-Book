@@ -5,6 +5,8 @@ import RecipeService from '../../Services/RecipeService'
 import { addRecipeSuccess } from '../../Store/Recipes/RecipeActions'
 import { connect } from 'react-redux'
 import { toast } from 'react-toastify';
+import { LinearProgress } from '@mui/material';
+
 class RecipeAddComponent extends Component {
     constructor(props) {
         super(props)
@@ -14,6 +16,7 @@ class RecipeAddComponent extends Component {
             imageFile: null,
             ingredients: [],
             steps: [],
+            isAdding: false
         }
     }
 
@@ -34,6 +37,7 @@ class RecipeAddComponent extends Component {
         if (state.imageFile) {
             formData.append('imageFile', state.imageFile);
         }
+        this.setState({ isAdding: true });
         recipeService.addRecipe(formData)
             .then(response => {
                 toast.success("Recipe added successfully")
@@ -46,6 +50,8 @@ class RecipeAddComponent extends Component {
                 } else {
                     toast.error("Something went wrong")
                 }
+            }).finally(() => {
+                this.setState({ isAdding: false });
             });
 
     }
@@ -100,12 +106,13 @@ class RecipeAddComponent extends Component {
         const { name, description, ingredients, steps } = this.state;
         return (
             <div className="RecipeEditComponent">
+                {this.state.isAdding && <LinearProgress />}
                 <div className="row">
                     <div className="col-xs-12">
                         <form onSubmit={this.handleSubmit}>
                             <div className="row my-3">
                                 <div className="col-xs-12">
-                                    <button className="btn btn-success me-3" >
+                                    <button className="btn btn-success me-3" disabled={this.state.isAdding} >
                                         Add New Recipe
                                     </button>
                                     <button className="btn btn-danger" type="button" onClick={this.handleCancel}>Cancel</button>

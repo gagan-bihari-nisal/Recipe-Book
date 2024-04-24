@@ -5,6 +5,7 @@ import RecipeService from '../../Services/RecipeService'
 import { store } from '../../Store/Store';
 import { updateRecipeSuccess } from '../../Store/Recipes/RecipeActions';
 import { toast } from 'react-toastify';
+import { LinearProgress } from '@mui/material';
 class RecipeEditComponent extends Component {
   constructor(props) {
     super(props)
@@ -15,6 +16,7 @@ class RecipeEditComponent extends Component {
       imageFile: null,
       ingredients: [],
       steps: [],
+      isEditing: false
     }
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -72,6 +74,8 @@ class RecipeEditComponent extends Component {
     if (state.imageFile) {
       formData.append('imageFile', state.imageFile);
     }
+
+    this.setState({ isEditing: true });
     recipeService.updateRecipe(formData, this.state.id)
       .then(response => {
         this.props.updateRecipeSuccess(this.state.id, response.data);
@@ -80,6 +84,8 @@ class RecipeEditComponent extends Component {
       })
       .catch(error => {
         toast.error("Error updating recipe:", error.message);
+      }).finally(() => {
+        this.setState({ isEditing: false });
       });
 
   }
@@ -111,12 +117,13 @@ class RecipeEditComponent extends Component {
     const { name, description, ingredients, steps } = this.state;
     return (
       <div className="RecipeEditComponent">
+        {this.state.isEditing && <LinearProgress />}
         <div className="row">
           <div className="col-xs-12">
             <form onSubmit={this.handleSubmit}>
               <div className="row my-3">
                 <div className="col-xs-12">
-                  <button className="btn btn-success me-3" >
+                  <button className="btn btn-success me-3" disabled={this.state.isEditing} >
                     Save Edit
                   </button>
                   <button className="btn btn-danger" type="button" onClick={this.handleCancel}>Cancel</button>

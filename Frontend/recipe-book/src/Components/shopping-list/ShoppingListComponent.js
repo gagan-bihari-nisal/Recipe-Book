@@ -47,7 +47,7 @@ class ShoppingListComponent extends Component {
                 </div>
                 <hr className='col-lg-6 col-md-6 col-xs-9 col-sm-9 text-light' />
                 <div className="row">
-                    <div className="col-lg-6 col-md-6 col-xs-9 col-sm-9" style={{ maxHeight: '50vh', overflow: 'scroll' }}>
+                    <div className="col-lg-6 col-md-6 col-xs-9 col-sm-9" style={{ maxHeight: '50vh', overflow: 'auto' }}>
                         <ul className="list-group">
                             {ingredients.map((ingredient, idx) => (
                                 <li key={idx} className="list-group-item text-capitalize" style={{ cursor: 'pointer' }}
