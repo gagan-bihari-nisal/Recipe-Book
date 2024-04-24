@@ -1,6 +1,9 @@
 package gbn.recipebook.recipe.service;
 
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -9,6 +12,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import com.google.cloud.storage.BlobInfo;
+import com.google.cloud.storage.Bucket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,6 +28,7 @@ import gbn.recipebook.recipe.model.ShoppingListDao;
 import gbn.recipebook.recipe.model.Steps;
 import gbn.recipebook.recipe.repository.IngredientRepository;
 import gbn.recipebook.recipe.repository.RecipeRepository;
+import com.google.firebase.cloud.StorageClient;
 
 @Service
 public class RecipeService {
@@ -68,14 +74,33 @@ public class RecipeService {
 		RecipeDao savedRecipe = recipeRepo.save(recipeDAO);
 
 		try {
-			Path directoryPath = Paths.get(uploadDirectory, "images", username);
-			Files.createDirectories(directoryPath);
-			Path filePath = Paths.get(uploadDirectory, "images", username, savedRecipe.getId()+"_"+file.getOriginalFilename() + ".jpg");
-			file.transferTo(filePath.toFile());
-			recipeDAO.setImage(filePath.toString());
+			// Get the Firebase Storage bucket
+			Bucket bucket = StorageClient.getInstance().bucket();
+
+			// Define the metadata for the file
+			BlobInfo blobInfo = BlobInfo.newBuilder(bucket.getName(), "images/" + username + "/" + savedRecipe.getId() + "_" + file.getOriginalFilename())
+					.setContentType(file.getContentType()).build();
+
+			// Upload the file to Firebase Storage
+			bucket.create(blobInfo.getName(), file.getInputStream(), blobInfo.getContentType());
+
+			// Set the image URL in the recipe
+			String imageUrl = "https://firebasestorage.googleapis.com/v0/b/" + bucket.getName() + "/o/" + URLEncoder.encode(blobInfo.getName(), StandardCharsets.UTF_8.name()) + "?alt=media";
+			System.out.println("Image URL: " + imageUrl);
+			recipeDAO.setImage(imageUrl);
 		} catch (IOException ex) {
 			throw new InvalidInputException("Invalid Image File");
 		}
+
+//		try {
+//			Path directoryPath = Paths.get(uploadDirectory, "images", username);
+//			Files.createDirectories(directoryPath);
+//			Path filePath = Paths.get(uploadDirectory, "images", username, savedRecipe.getId()+"_"+file.getOriginalFilename() + ".jpg");
+//			file.transferTo(filePath.toFile());
+//			recipeDAO.setImage(filePath.toString());
+//		} catch (IOException ex) {
+//			throw new InvalidInputException("Invalid Image File");
+//		}
 
 		return recipeRepo.save(recipeDAO);
 	}
@@ -171,14 +196,44 @@ public class RecipeService {
 		if(recipeDto.getImageFile()!=null) {
 			MultipartFile file = recipeDto.getImageFile();
 			try {
-				Path directoryPath = Paths.get(uploadDirectory, "images", username);
-				Files.createDirectories(directoryPath);
-				Path filePath = Paths.get(uploadDirectory, "images", username, recipeId+"_"+file.getOriginalFilename() + ".jpg");
-				file.transferTo(filePath.toFile());
-				existingRecipe.setImage(filePath.toString());
+				// Get the Firebase Storage bucket
+				Bucket bucket = StorageClient.getInstance().bucket();
+				// Get the old image URL and extract the blob name
+				String oldImageUrl = existingRecipe.getImage();
+				String oldImageBlobName = oldImageUrl.substring(oldImageUrl.indexOf("/o/") + 3, oldImageUrl.indexOf("?alt=media"));
+				oldImageBlobName = URLDecoder.decode(oldImageBlobName, StandardCharsets.UTF_8.name());
+
+				// Delete the old image from Firebase Storage
+				boolean deleted = bucket.get(oldImageBlobName).delete();
+				if (!deleted) {
+					throw new IOException("Failed to delete old image");
+				} else {
+					System.out.println("Deleted old image");
+				}
+
+				// Define the metadata for the file
+				BlobInfo blobInfo = BlobInfo.newBuilder(bucket.getName(), "images/" + username + "/" + existingRecipe.getId() + "_" + file.getOriginalFilename())
+						.setContentType(file.getContentType()).build();
+
+				// Upload the file to Firebase Storage
+				bucket.create(blobInfo.getName(), file.getInputStream(), blobInfo.getContentType());
+
+				// Set the image URL in the recipe
+				String imageUrl = "https://firebasestorage.googleapis.com/v0/b/" + bucket.getName() + "/o/" + URLEncoder.encode(blobInfo.getName(), StandardCharsets.UTF_8.name()) + "?alt=media";
+				System.out.println("Image URL: " + imageUrl);
+				existingRecipe.setImage(imageUrl);
 			} catch (IOException ex) {
 				throw new InvalidInputException("Invalid Image File");
 			}
+//			try {
+//				Path directoryPath = Paths.get(uploadDirectory, "images", username);
+//				Files.createDirectories(directoryPath);
+//				Path filePath = Paths.get(uploadDirectory, "images", username, recipeId+"_"+file.getOriginalFilename() + ".jpg");
+//				file.transferTo(filePath.toFile());
+//				existingRecipe.setImage(filePath.toString());
+//			} catch (IOException ex) {
+//				throw new InvalidInputException("Invalid Image File");
+//			}
 		}
 
 		return recipeRepo.save(existingRecipe);

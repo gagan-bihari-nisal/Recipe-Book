@@ -1,1 +1,6 @@
 /.metadata/
+/Backend/recipe-book-recipe/src/main/resources/ServiceAccountKey.json
+/Backend/recipe-book-eureka/src/main/resources/ServiceAccountKey.json
+
+/Backend/recipe-book-eureka/src/main/resources/recipe-book-cc868-firebase-adminsdk-bqlbx-5812f64e81.json
+/Backend/recipe-book-recipe/src/main/resources/recipe-book-cc868-firebase-adminsdk-bqlbx-5812f64e81.json

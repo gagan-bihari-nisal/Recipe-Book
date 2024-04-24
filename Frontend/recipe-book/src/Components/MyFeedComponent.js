@@ -25,11 +25,6 @@ export default class MyFeedComponent extends Component {
             .then((response) => {
                 // response data contains recipe image and it needs to be modified to display the image
                 const recipes = response.data.map((recipe) => {
-                    if (recipe.image) {
-                        const indexOfPublic = recipe.image.indexOf('public');
-                        if (indexOfPublic > 0)
-                            recipe.image = recipe.image.substring(indexOfPublic).substring(6);
-                    }
                     return recipe;
                 });
                 this.setState({ recipes: recipes });
@@ -56,7 +51,15 @@ export default class MyFeedComponent extends Component {
                         <label htmlFor="searchQuery">Search Recipes</label>
                     </div>
                 </div>
-
+                {
+                    filteredRecipes.length === 0 &&
+                    <div className="container-fluid my-3 d-flex flex-column justify-content-center align-items-center" style={{ width: "500px", height: "50vh" }}>
+                        <i className="bi bi-emoji-frown text-light mb-3" style={{ fontSize: "5rem" }}></i>
+                        <h2 className="fs-5 text-uppercase fw-bolder text-light">
+                            No recipes found
+                        </h2>
+                    </div>
+                }
                 {filteredRecipes.map((recipe, index) => {
                     return (
                         <div className="container-fluid my-3 bg-light" style={{ width: "500px" }}>
@@ -76,11 +79,11 @@ export default class MyFeedComponent extends Component {
                             <div className="row">
                                 <div className="col  d-flex justify-content-center align-items-center hover-effect
 hover-effect" style={{
-                                    cursor: "pointer",
-                                    bottom: "0%", right: "50%",
-                                    backgroundColor: "darkcyan"
+                                        cursor: "pointer",
+                                        bottom: "0%", right: "50%",
+                                        backgroundColor: "darkcyan"
 
-                                }} onClick={() => this.handleExpandClick(index)}>
+                                    }} onClick={() => this.handleExpandClick(index)}>
                                     {this.state.showDetails === index
                                         ? <i className='bi bi-chevron-up fs-5 text-white '></i>
                                         : <i className='bi bi-chevron-down fs-5 text-white '></i>

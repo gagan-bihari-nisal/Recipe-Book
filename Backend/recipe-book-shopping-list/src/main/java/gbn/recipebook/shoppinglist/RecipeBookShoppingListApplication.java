@@ -12,14 +12,7 @@ import feign.Retryer;
 @EnableEurekaClient
 @EnableFeignClients
 public class RecipeBookShoppingListApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(RecipeBookShoppingListApplication.class, args);
 	}
-
-	@Bean
-	public Retryer retryer() {
-		return new Retryer.Default(100, 1000, 3); // 3 retries with a 1-second backoff
-	}
-
 }
